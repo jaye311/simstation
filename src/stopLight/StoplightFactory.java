@@ -1,25 +1,32 @@
 package stopLight;
 
-import java.awt.*;
-import javax.swing.*;
-
 import mvc.*;
 
+public class StoplightFactory implements AppFactory {
 
-public class StoplightPanel extends AppPanel {
-    private JButton change;
-    public StoplightPanel(AppFactory factory) {
-        super(factory);
-        change = new JButton("Change");
-        change.addActionListener(this);
-        controlPanel.add(change);
+    public Model makeModel() { return new Stoplight(); }
+
+    public View makeView(Model m) {
+        return new StoplightView((Stoplight)m);
     }
 
-    public static void main(String[] args) {
-        AppFactory factory = new StoplightFactory();
-        AppPanel panel = new StoplightPanel(factory);
-        panel.display();
+    public String[] getEditCommands() { return new String[] {"Change"}; }
+
+    // source added 3/15 to support text fields
+    public Command makeEditCommand(Model model, String type, Object source) {
+        if (type == "Change")
+            return new ChangeCommand(model);
+        return null;
+    }
+
+    public String getTitle() { return "Stop Light Simulator"; }
+
+    public String[] getHelp() {
+        return new String[] {"click Change to cycle through colors"};
+    }
+
+    public String about() {
+        return "Stoplight Simulator version 1.0. Copyright 2020 by Cyberdellic Designs";
     }
 
 }
-
