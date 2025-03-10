@@ -22,5 +22,4 @@ public interface AppFactory {
     default Command makeEditCommand(String name){
         return null;
     }
-
 }
