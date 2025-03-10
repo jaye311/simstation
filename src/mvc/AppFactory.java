@@ -1,12 +1,11 @@
 package mvc;
 
 public interface AppFactory {
-    default void makeModel(){}
-    default void makeView(){}
-    default void getTitle(){}
-    default void getHelp(){}
-    default void about(){}
-    default void getEditCommands(){}
-    default void makeEditCommand(String name){}
-
+    Model makeModel();
+    View makeView(Model m);
+    String getTitle();
+    String[] getHelp();
+    String about();
+    String[] getEditCommands();
+    Command makeEditCommand(Model m, String type, Object s);
 }
