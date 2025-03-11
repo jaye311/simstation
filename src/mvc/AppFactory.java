@@ -2,7 +2,7 @@ package mvc;
 
 public interface AppFactory {
     Model makeModel();
-    View makeModel(Model m);
+    View makeView(Model m);
     String getTitle();
     String[] getHelp();
     String about();
