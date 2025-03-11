@@ -1,5 +1,4 @@
 package mvc;
-
 public interface AppFactory {
     Model makeModel();
     View makeView(Model m);
