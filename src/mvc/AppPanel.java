@@ -1,14 +1,11 @@
 package mvc;
 
-import mvc.Subscriber;
-import mvc.Utilities;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 // AppPanel is the MVC controller
-public class AppPanel extends JPanel implements Subscriber, ActionListener, AppFactory  {
+public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
     protected Model model;
     protected AppFactory factory;
@@ -25,11 +22,6 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener, AppF
         model = factory.makeModel();
         view = factory.makeView(model);
         controlPanel = new JPanel();
-        String [] cmmds = factory.getEditCommands();
-        for(String s: cmmds){
-            factory.makeEditCommand(model, s, new Object());
-        }
-
         this.setLayout((new GridLayout(1, 2)));
         add(controlPanel);
         add(view);
