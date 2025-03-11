@@ -18,7 +18,14 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
     public AppPanel(AppFactory factory) {
 
         // initialize fields here
+        this.factory = factory;
+        model = factory.makeModel();
+        view = factory.makeView(model);
+        controlPanel = new JPanel();
 
+        this.setLayout((new GridLayout(1, 2)));
+        add(controlPanel);
+        add(view);
         frame = new SafeFrame();
         Container cp = frame.getContentPane();
         cp.add(this);
@@ -29,7 +36,8 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
     public void display() { frame.setVisible(true); }
 
-    public void update() {  /* override in extensions if needed */ }
+    public void update() {  /* override in extensions if needed */
+    }
 
     public Model getModel() { return model; }
 
@@ -84,8 +92,8 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
                 Utilities.inform(factory.about());
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
-            } else { // must be from Edit menu
-                //???
+            } else {
+                factory.makeEditCommand(model, ae.getActionCommand(), ae.getSource()).execute();
             }
         } catch (Exception e) {
             handleException(e);
