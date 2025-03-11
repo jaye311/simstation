@@ -1,14 +1,11 @@
 package mvc;
 
-import mvc.Subscriber;
-import mvc.Utilities;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 // AppPanel is the MVC controller
-public class AppPanel extends JPanel implements Subscriber, ActionListener, AppFactory  {
+public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
     protected Model model;
     protected AppFactory factory;
@@ -21,7 +18,18 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener, AppF
     public AppPanel(AppFactory factory) {
 
         // initialize fields here
+        this.factory = factory;
+        model = factory.makeModel();
+        view = factory.makeView(model);
+        controlPanel = new JPanel();
+        String [] cmmds = factory.getEditCommands();
+        for(String s: cmmds){
+            factory.makeEditCommand(model, s, new Object());
+        }
 
+        this.setLayout((new GridLayout(1, 2)));
+        add(controlPanel);
+        add(view);
         frame = new SafeFrame();
         Container cp = frame.getContentPane();
         cp.add(this);
@@ -32,7 +40,8 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener, AppF
 
     public void display() { frame.setVisible(true); }
 
-    public void update() {  /* override in extensions if needed */ }
+    public void update() {  /* override in extensions if needed */
+    }
 
     public Model getModel() { return model; }
 
@@ -87,8 +96,8 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener, AppF
                 Utilities.inform(factory.about());
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
-            } else { // must be from Edit menu
-                //???
+            } else {
+                factory.makeEditCommand(model, ae.getActionCommand(), ae.getSource()).execute();
             }
         } catch (Exception e) {
             handleException(e);
