@@ -13,9 +13,9 @@ public class Publisher {
 
     //can choose what type of list of subscribers
     public Publisher(String x){
-        if(x.equalsIgnoreCase("linked"))
+        if(x.equalsIgnoreCase("linked")) {
             subscribers = new LinkedList<>();
-        else if(x.equalsIgnoreCase("stack"))
+        } else if(x.equalsIgnoreCase("stack"))
             subscribers = new Stack<>();
         else if(x.equalsIgnoreCase("vector"))
             subscribers = new Vector<>();
