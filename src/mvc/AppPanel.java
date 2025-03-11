@@ -1,14 +1,11 @@
 package mvc;
 
-import mvc.Subscriber;
-import mvc.Utilities;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 // AppPanel is the MVC controller
-public class AppPanel extends JPanel implements Subscriber, ActionListener, AppFactory  {
+public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
     protected Model model;
     protected AppFactory factory;
