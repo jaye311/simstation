@@ -1,4 +1,4 @@
-package minefield;
+package mineField;
 
 import java.awt.*;
 import javax.swing.*;
@@ -19,6 +19,7 @@ public class MinefieldPanel extends AppPanel {
     private JButton SE;
     public MinefieldPanel(AppFactory factory) {
         super(factory);
+        controlPanel.setLayout(new GridLayout(4, 2));
         N = new JButton("N");
         N.addActionListener(this);
         controlPanel.add(N);
@@ -35,19 +36,19 @@ public class MinefieldPanel extends AppPanel {
         NW.addActionListener(this);
         controlPanel.add(NW);
         NE = new JButton("NE");
-        N.addActionListener(this);
+        NE.addActionListener(this);
         controlPanel.add(NE);
         SW = new JButton("SW");
-        N.addActionListener(this);
+        SW.addActionListener(this);
         controlPanel.add(SW);
         SE = new JButton("SE");
-        N.addActionListener(this);
+        SE.addActionListener(this);
         controlPanel.add(SE);
     }
 
     public static void main(String[] args) {
         AppFactory factory = new MinefieldFactory();
-        AppPanel panel = new minefield.MinefieldPanel(factory);
+        AppPanel panel = new mineField.MinefieldPanel(factory);
         panel.display();
     }
 
