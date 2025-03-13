@@ -25,10 +25,9 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         model = factory.makeModel();
         view = factory.makeView(model);
         controlPanel = new JPanel();
-        String [] cmmds = factory.getEditCommands();
-        for(String s: cmmds){
-            factory.makeEditCommand(model, s, new Object());
-        }
+
+        Color backgroundColor = Color.PINK;
+        controlPanel.setBackground(backgroundColor);
 
         this.setLayout((new GridLayout(1, 2)));
         add(controlPanel);
