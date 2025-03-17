@@ -1,14 +1,11 @@
 package mvc;
 
-import mvc.Subscriber;
-import mvc.Utilities;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 // AppPanel is the MVC controller
-public class AppPanel extends JPanel implements Subscriber, ActionListener {
+public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
     protected Model model;
     protected AppFactory factory;
@@ -25,9 +22,6 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         model = factory.makeModel();
         view = factory.makeView(model);
         controlPanel = new JPanel();
-
-        Color backgroundColor = Color.PINK;
-        controlPanel.setBackground(backgroundColor);
 
         this.setLayout((new GridLayout(1, 2)));
         add(controlPanel);
