@@ -30,6 +30,10 @@ public class Cell implements Serializable {
         this.adjacentMines = adjacentMines;
     }
 
+    public int getAdjacentMines() {
+        return adjacentMines;
+    }
+
     public boolean getMine(){
         return mine;
     }

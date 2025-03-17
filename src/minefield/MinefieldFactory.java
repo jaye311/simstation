@@ -21,7 +21,7 @@ public class MinefieldFactory implements AppFactory {
     public Command makeEditCommand(Model model, String type, Object source) {
         if (type.equals("N") || type.equals("E") || type.equals("S") || type.equals("W") ||
                 type.equals("NW") || type.equals("NE") || type.equals("SW") || type.equals("SE"))
-            return new MoveCommand(model);
+            return new MoveCommand(model, type);
         return null;
     }
 

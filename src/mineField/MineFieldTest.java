@@ -5,9 +5,10 @@ import java.util.Scanner;
 public class MineFieldTest {
     public static void main(String[] args) {
         MineField mf = new MineField();
-        mf.setFieldSize(10);
-        mf.setPercentMined(10);
-        Cell[][] setMF = mf.setMines();
+//        mf.setFieldSize(10);
+//        mf.setPercentMined(10);
+//        mf.setMines();
+        mf.setUpField(10, 10);
         mf.textRepresentation();
         Scanner scanner = new Scanner(System.in);
         String direction;

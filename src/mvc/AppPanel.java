@@ -1,8 +1,5 @@
 package mvc;
 
-import mvc.Subscriber;
-import mvc.Utilities;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -38,6 +35,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         frame.setJMenuBar(createMenuBar());
         frame.setTitle(factory.getTitle());
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.pack();
     }
 
     public void display() { frame.setVisible(true); }
