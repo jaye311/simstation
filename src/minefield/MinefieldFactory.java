@@ -1,6 +1,5 @@
 package mineField;
 
-
 import mvc.*;
 
 public class MinefieldFactory implements AppFactory {
