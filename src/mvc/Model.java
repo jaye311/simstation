@@ -1,6 +1,5 @@
 package mvc;
 
-import mvc.Publisher;
 import java.io.Serializable;
 
 public abstract class Model extends Publisher implements Serializable {
@@ -9,15 +8,19 @@ public abstract class Model extends Publisher implements Serializable {
     public void setUnsavedChanges(boolean b){
         unsavedChanges = b;
     }
+
     public boolean getUnsavedChanges(){
         return unsavedChanges;
     }
+
     public void changed(){
         unsavedChanges = true;
     }
+
     public String getFileName(){
         return fileName;
     }
+
     public void setFileName(String s){
         fileName = s;
     }

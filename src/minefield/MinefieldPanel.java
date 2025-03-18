@@ -34,8 +34,24 @@ public class MinefieldPanel extends AppPanel {
         p.add(SE);
         controlPanel.add(p);
     }
+
     public MinefieldPanel(AppFactory factory) {
         super(factory);
+
+//        // Creates and adds the MinefieldView
+//        view = new MinefieldView(((MineField) model));
+//        model.subscribe(view); // Allows the view to update according to changes
+//        this.add(view);
+
+        N = new JButton("N");
+        E = new JButton("E");
+        S = new JButton("S");
+        W = new JButton("W");
+        NW = new JButton("NW");
+        NE = new JButton("NE");
+        SW = new JButton("SW");
+        SE = new JButton("SE");
+
         controlPanel.setLayout(new GridLayout(3, 3));
         buttonLayout();
 
@@ -63,4 +79,3 @@ public class MinefieldPanel extends AppPanel {
     }
 
 }
-
