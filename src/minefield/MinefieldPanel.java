@@ -9,41 +9,51 @@ import javax.swing.*;
 
 
 public class MinefieldPanel extends AppPanel {
-    private JButton N;
-    private JButton E;
-    private JButton S;
-    private JButton W;
-    private JButton NW;
-    private JButton NE;
-    private JButton SW;
-    private JButton SE;
+    private JButton N, E, S, W, NW, NE, SW, SE;
+    private MinefieldView view; // View to display the minefield
+
+    public void buttonLayout(){
+        JPanel p;
+
+        //FlowLayout provides buttons with horizontal spacing
+        p = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        p.add(NW);
+        p.add(N);
+        p.add(NE);
+        controlPanel.add(p);
+
+        p = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 6));
+        p.add(W);
+        p.add(new JLabel()); // Spacing placeholder (blank space)
+        p.add(E);
+        controlPanel.add(p);
+
+        p = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 6));
+        p.add(SW);
+        p.add(S);
+        p.add(SE);
+        controlPanel.add(p);
+    }
     public MinefieldPanel(AppFactory factory) {
         super(factory);
-        controlPanel.setLayout(new GridLayout(4, 2));
-        N = new JButton("N");
+        controlPanel.setLayout(new GridLayout(3, 3));
+        buttonLayout();
+
         N.addActionListener(this);
-        controlPanel.add(N);
-        E = new JButton("E");
+
         E.addActionListener(this);
-        controlPanel.add(E);
-        S = new JButton("S");
+
         S.addActionListener(this);
-        controlPanel.add(S);
-        W = new JButton("W");
+
         W.addActionListener(this);
-        controlPanel.add(W);
-        NW = new JButton("NW");
+
         NW.addActionListener(this);
-        controlPanel.add(NW);
-        NE = new JButton("NE");
+
         NE.addActionListener(this);
-        controlPanel.add(NE);
-        SW = new JButton("SW");
+
         SW.addActionListener(this);
-        controlPanel.add(SW);
-        SE = new JButton("SE");
+
         SE.addActionListener(this);
-        controlPanel.add(SE);
     }
 
     public static void main(String[] args) {
