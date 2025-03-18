@@ -4,15 +4,13 @@ import java.awt.*;
 import javax.swing.*;
 
 import mvc.*;
-import java.awt.*;
-import javax.swing.*;
+
 
 
 public class MinefieldPanel extends AppPanel {
     private JButton N, E, S, W, NW, NE, SW, SE;
-    private MinefieldView view; // View to display the minefield
 
-    public void buttonLayout(){
+    /*public void buttonLayout(){
         JPanel p;
 
         //FlowLayout provides buttons with horizontal spacing
@@ -33,7 +31,7 @@ public class MinefieldPanel extends AppPanel {
         p.add(S);
         p.add(SE);
         controlPanel.add(p);
-    }
+    }*/
 
     public MinefieldPanel(AppFactory factory) {
         super(factory);
@@ -51,7 +49,7 @@ public class MinefieldPanel extends AppPanel {
         NE = new JButton("NE");
         SW = new JButton("SW");
         SE = new JButton("SE");
-
+/*
         controlPanel.setLayout(new GridLayout(3, 3));
         buttonLayout();
 
@@ -70,6 +68,58 @@ public class MinefieldPanel extends AppPanel {
         SW.addActionListener(this);
 
         SE.addActionListener(this);
+       */
+        //layout shown on Assignment
+        controlPanel.setLayout(new GridLayout(4, 2));
+        JPanel p = new JPanel();
+
+        NW = new JButton("NW");
+        NW.addActionListener(this);
+        p.add(NW);
+        controlPanel.add(p);
+        p = new JPanel();
+
+        N = new JButton("N");
+        N.addActionListener(this);
+        p.add(N);
+        controlPanel.add(p);
+        p = new JPanel();
+
+        NE = new JButton("NE");
+        NE.addActionListener(this);
+        p.add(NE);
+        controlPanel.add(p);
+        p = new JPanel();
+
+        W = new JButton("W");
+        W.addActionListener(this);
+        p.add(W);
+        controlPanel.add(p);
+        p = new JPanel();
+
+        E = new JButton("E");
+        E.addActionListener(this);
+        p.add(E);
+        controlPanel.add(p);
+        p = new JPanel();
+
+        SW = new JButton("SW");
+        SW.addActionListener(this);
+        p.add(SW);
+        controlPanel.add(p);
+        p = new JPanel();
+
+        S = new JButton("S");
+        S.addActionListener(this);
+        p.add(S);
+        controlPanel.add(p);
+        p = new JPanel();
+
+        SE = new JButton("SE");
+        SE.addActionListener(this);
+        p.add(SE);
+        controlPanel.add(p);
+
     }
 
     public static void main(String[] args) {
