@@ -34,6 +34,11 @@ public class MinefieldView extends View{
                 gc.fillRect(x, y, CELL_SIZE, CELL_SIZE);
                 gc.setColor(Color.BLACK);
                 gc.drawRect(x, y, CELL_SIZE, CELL_SIZE);
+                //Makes border of stepped on box white
+                if(mineField.isSteppedOn(row,col)){
+                    gc.setColor(Color.WHITE);
+                    gc.drawRect(x, y, CELL_SIZE, CELL_SIZE);
+                }
 
                 // Paints mine if player steps on it
                 if (mineField.isSteppedOn(row, col) && mineField.hasMine(row, col)) {
