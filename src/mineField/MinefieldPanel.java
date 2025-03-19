@@ -8,7 +8,6 @@ import mvc.*;
 
 public class MinefieldPanel extends AppPanel {
     private JButton N, E, S, W, NW, NE, SW, SE;
-    private MinefieldView view; // View to display the minefield
 
     public void buttonLayout(){
         JPanel p;
@@ -49,7 +48,6 @@ public class MinefieldPanel extends AppPanel {
         NE = new JButton("NE");
         SW = new JButton("SW");
         SE = new JButton("SE");
-
         controlPanel.setLayout(new GridLayout(3, 3));
         buttonLayout();
 

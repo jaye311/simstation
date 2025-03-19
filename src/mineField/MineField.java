@@ -1,12 +1,11 @@
 package mineField;
 
 import mvc.Model;
-import mvc.Utilities;
 
 public class MineField extends Model {
     private int fieldSize;
     private Cell [][] field;
-    private int percentMined;
+    public static int percentMined = 5;
     private int playerX;
     private int playerY;
     private boolean playerLiving;
@@ -14,7 +13,6 @@ public class MineField extends Model {
 
     public MineField(){
         fieldSize = 20;
-        percentMined = 0;
         playerX = 0;
         playerY = 0;
         playerLiving = true;
@@ -69,10 +67,6 @@ public class MineField extends Model {
         field[0][0].setSteppedOn(true);
     }
 
-    public void setPercentMined(int percent){
-        if(percent <= 100 && percent >= 0)
-            percentMined = percent;
-    }
     //use this method for MoveCommand given a direction moves the player in that direction by 1 cell
     public void move(String direction) throws MineFieldException{
         if(!playerLiving) {
