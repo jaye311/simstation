@@ -30,7 +30,8 @@ public class MinefieldFactory implements AppFactory {
 
     @Override
     public String[] getHelp() {
-        return new String[] {"Click N, E, S, W, NW, NE, SW, SE to move the minefield"};
+        return new String[] {"Click N, E, S, W, NW, NE, SW, SE to move " +
+                "the player across the minefield one cell at a time in that direction."};
     }
 
     @Override
