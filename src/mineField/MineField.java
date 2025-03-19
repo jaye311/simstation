@@ -19,15 +19,11 @@ public class MineField extends Model {
         playerY = 0;
         playerLiving = true;
         playerWinState = false;
+        setMines();
     }
 
-    public void setUpField(int fieldSize, int percentMined){
-        this.fieldSize = fieldSize;
-        this.percentMined = percentMined;
-        this.field = setMines();
-    }
 
-    public Cell[][] setMines(){
+    public void setMines(){
         field = new Cell[fieldSize][fieldSize];
         for(int row = 0; row < field.length; row++){
             for(int col = 0; col < field[row].length; col++){
@@ -71,7 +67,6 @@ public class MineField extends Model {
         }
         //player starts on starting square
         field[0][0].setSteppedOn(true);
-        return field;
     }
 
     public void setPercentMined(int percent){
@@ -183,9 +178,6 @@ public class MineField extends Model {
             fieldSize = size;
     }
 
-    public Cell[][] getField() {
-        return field;
-    }
 
     public int getAdjacentMines(int row, int col){
         return field[row][col].getAdjacentMines();
