@@ -14,7 +14,7 @@ public class MinefieldFactory implements AppFactory {
 
     @Override
     public String[] getEditCommands() {
-            return new String[]{"N", "E", "S", "W", "NW", "NE", "SW", "SE"};
+        return new String[]{"N", "E", "S", "W", "NW", "NE", "SW", "SE"};
     }
 
     @Override
@@ -25,7 +25,7 @@ public class MinefieldFactory implements AppFactory {
         return null;
     }
 
-   @Override
+    @Override
     public String getTitle() { return "Mine Field"; }
 
     @Override
@@ -35,7 +35,7 @@ public class MinefieldFactory implements AppFactory {
 
     @Override
     public String about() {
-        return "Minefield version 1.0. Copyright 2025 by Cyberdellic Designs";
+        return "Minefield version 1.0. Copyright 2025 by Naina, Luis, Jonathan";
     }
 
 }
