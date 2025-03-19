@@ -12,17 +12,8 @@ public class MoveCommand extends Command {
         this.model = (MineField) model;
         this.direction = direction;
     }
-    public void execute ()  {
-        try{
-            model.move(direction);
-        }
-        catch(MineFieldException e){
-            if(e.getMessage().contains("win"))
-                Utilities.inform(e.getMessage());
-            else
-                Utilities.error(e.getMessage());
-        }
-//        model.getField()[model.getX()][model.getY()].setSteppedOn(true); // Mark as visited
+    public void execute ()  throws MineFieldException{
+        model.move(direction);
         model.changed();
     }
 
