@@ -17,7 +17,10 @@ public class MoveCommand extends Command {
             model.move(direction);
         }
         catch(MineFieldException e){
-            Utilities.inform(e.getMessage());
+            if(e.getMessage().contains("win"))
+                Utilities.inform(e.getMessage());
+            else
+                Utilities.error(e.getMessage());
         }
 //        model.getField()[model.getX()][model.getY()].setSteppedOn(true); // Mark as visited
         model.changed();
