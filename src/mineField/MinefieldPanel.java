@@ -75,7 +75,7 @@ public class MinefieldPanel extends AppPanel {
         if(!mineField.isPlayerLiving()){
             Utilities.inform("You lose!");
         }else if(mineField.playerWinState()){
-            Utilities.inform("You win");
+            Utilities.inform("You win!");
         }
     }
 

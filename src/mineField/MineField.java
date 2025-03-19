@@ -5,7 +5,7 @@ import mvc.Model;
 public class MineField extends Model {
     private int fieldSize;
     private Cell [][] field;
-    public static int percentMined = 5;
+    public static int percentMined = 0;
     private int playerX;
     private int playerY;
     private boolean playerLiving;
