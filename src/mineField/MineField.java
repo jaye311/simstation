@@ -86,7 +86,7 @@ public class MineField extends Model {
                     validMove = true;
                     playerY--;
                     playerX++;
-                    System.out.println("North-East to: " + playerX + ", " + playerY);
+                    //System.out.println("North-East to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("SE")) {
@@ -94,14 +94,14 @@ public class MineField extends Model {
                     validMove = true;
                     playerY++;
                     playerX++;
-                    System.out.println("South-East to: " + playerX + ", " + playerY);
+                    //System.out.println("South-East to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("E")) {
                 if (playerX < fieldSize - 1) {
                     validMove = true;
                     playerX++;
-                    System.out.println("East to: " + playerX + ", " + playerY);
+                    //System.out.println("East to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("N")) {
@@ -115,7 +115,7 @@ public class MineField extends Model {
                 if (playerY < fieldSize - 1) {
                     validMove = true;
                     playerY++;
-                    System.out.println("South to: " + playerX + ", " + playerY);
+                    //System.out.println("South to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("SW")) {
@@ -123,7 +123,7 @@ public class MineField extends Model {
                     validMove = true;
                     playerY++;
                     playerX--;
-                    System.out.println("South-West to: " + playerX + ", " + playerY);
+                    //System.out.println("South-West to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("NW")) {
@@ -131,14 +131,14 @@ public class MineField extends Model {
                     validMove = true;
                     playerY--;
                     playerX--;
-                    System.out.println("North-West to: " + playerX + ", " + playerY);
+                    //System.out.println("North-West to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("W")) {
                 if (playerX > 0) {
                     validMove = true;
                     playerX--;
-                    System.out.println("West to: " + playerX + ", " + playerY);
+                    //System.out.println("West to: " + playerX + ", " + playerY);
                 }
             }
             if(!validMove){
@@ -147,7 +147,7 @@ public class MineField extends Model {
             //if you step on a mine you lose
             if(field[playerY][playerX].getMine()){
                 playerLiving = false;
-                System.err.println("You are dead!");
+                Utilities.error("You are dead!");
             }
             //reveal hidden cells that were steppedOn
             if(!field[playerY][playerX].isSteppedOn()){
@@ -155,7 +155,6 @@ public class MineField extends Model {
             }
             //Player has reached goal
             if(playerY == fieldSize - 1 && playerX == fieldSize - 1){
-                System.out.println("You win!");
                 Utilities.inform("You win!");
                 playerWinState = true;
             }
@@ -190,7 +189,7 @@ public class MineField extends Model {
         return field[row][col].isSteppedOn();
     }
 
-    //for testing
+    //for testing only not for users
     public void textRepresentation(){
         for(int row = 0; row < field.length; row++) {
             for (int col = 0; col < field.length; col++) {
