@@ -76,13 +76,14 @@ public class MinefieldPanel extends AppPanel {
     public void update() {
         //System.out.println("MinefieldPanel update");
         MineField mineField = (MineField) model;
+        dialogShown = mineField.hasDialogBeenShown();
         if (!dialogShown) {
             if (!mineField.isPlayerLiving()) {
                 dialogShown = true;
-                SwingUtilities.invokeLater(() -> Utilities.inform("You lose!"));
+                Utilities.inform("You lose!");
             } else if (mineField.playerWinState()) {
                 dialogShown = true;
-                SwingUtilities.invokeLater(() -> Utilities.inform("You win!"));
+                Utilities.inform("You win!");
             }
         }
     }

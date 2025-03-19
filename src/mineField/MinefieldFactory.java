@@ -36,7 +36,7 @@ public class MinefieldFactory implements AppFactory {
 
     @Override
     public String about() {
-        return "Minefield version 1.0. Copyright 2025 by Naina, Luis, Jonathan";
+        return "Minefield version 1.0. Copyright 2025 by Naina Talasu, Luis Archundia, & Jonathan Aye";
     }
 
 }
