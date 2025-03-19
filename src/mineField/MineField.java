@@ -14,7 +14,7 @@ public class MineField extends Model {
 
     public MineField(){
         fieldSize = 20;
-        percentMined = 10;
+        percentMined = 0;
         playerX = 0;
         playerY = 0;
         playerLiving = true;
@@ -76,9 +76,9 @@ public class MineField extends Model {
     //use this method for MoveCommand given a direction moves the player in that direction by 1 cell
     public void move(String direction) throws MineFieldException{
         if(!playerLiving) {
-            Utilities.error("You are dead!");
+            throw new MineFieldException("You've lost!");
         }else if(playerWinState) {
-            Utilities.inform("You've already won!");
+            throw new MineFieldException("You've already won!");
         }else{
             boolean validMove = false;
             if (direction.equals("NE")) {
@@ -142,12 +142,11 @@ public class MineField extends Model {
                 }
             }
             if(!validMove){
-                Utilities.error("Error! Move was out of bounds!");
+                throw new MineFieldException("Out of bounds move");
             }
             //if you step on a mine you lose
             if(field[playerY][playerX].getMine()){
                 playerLiving = false;
-                Utilities.error("You are dead!");
             }
             //reveal hidden cells that were steppedOn
             if(!field[playerY][playerX].isSteppedOn()){
@@ -155,7 +154,6 @@ public class MineField extends Model {
             }
             //Player has reached goal
             if(playerY == fieldSize - 1 && playerX == fieldSize - 1){
-                Utilities.inform("You win!");
                 playerWinState = true;
             }
             notifySubscribers();
@@ -171,6 +169,15 @@ public class MineField extends Model {
     public int getFieldSize(){
         return fieldSize;
     }
+
+    public boolean isPlayerLiving(){
+        return playerLiving;
+    }
+
+    public boolean playerWinState(){
+        return playerWinState;
+    }
+
     public void setFieldSize(int size){
         if(size > 0)
             fieldSize = size;

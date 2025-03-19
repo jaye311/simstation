@@ -70,6 +70,17 @@ public class MinefieldPanel extends AppPanel {
         SE.addActionListener(this);
     }
 
+    @Override
+    public void update() {
+        MineField mineField = (MineField) model;
+        // Shows dialogue to player on game end
+        if(!mineField.isPlayerLiving()){
+            Utilities.inform("You lose!");
+        }else if(mineField.playerWinState()){
+            Utilities.inform("You win");
+        }
+    }
+
     public static void main(String[] args) {
         AppFactory factory = new MinefieldFactory();
         AppPanel panel = new mineField.MinefieldPanel(factory);
