@@ -76,14 +76,13 @@ public class MineField extends Model {
     //use this method for MoveCommand
     public void move(String direction) {
         if(!playerLiving) {
-            System.err.println("You are dead!");
             Utilities.error("You are dead!");
         }else if(playerWinState) {
             Utilities.inform("You've already won!");
         }else{
             boolean validMove = false;
             if (direction.equals("NE")) {
-                if (playerY > 0 && playerX < fieldSize) {
+                if (playerY > 0 && playerX < fieldSize - 1) {
                     validMove = true;
                     playerY--;
                     playerX++;
@@ -91,7 +90,7 @@ public class MineField extends Model {
                 }
             }
             if (direction.equals("SE")) {
-                if (playerY < fieldSize && playerX < fieldSize) {
+                if (playerY < fieldSize - 1 && playerX < fieldSize - 1) {
                     validMove = true;
                     playerY++;
                     playerX++;
@@ -99,7 +98,7 @@ public class MineField extends Model {
                 }
             }
             if (direction.equals("E")) {
-                if (playerX < fieldSize) {
+                if (playerX < fieldSize - 1) {
                     validMove = true;
                     playerX++;
                     System.out.println("East to: " + playerX + ", " + playerY);
@@ -113,14 +112,14 @@ public class MineField extends Model {
                 }
             }
             if (direction.equals("S")) {
-                if (playerY < fieldSize) {
+                if (playerY < fieldSize - 1) {
                     validMove = true;
                     playerY++;
                     System.out.println("South to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("SW")) {
-                if (playerY < fieldSize && playerX > 0) {
+                if (playerY < fieldSize - 1 && playerX > 0) {
                     validMove = true;
                     playerY++;
                     playerX--;
