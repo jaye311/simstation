@@ -97,18 +97,18 @@ public class Utilities {
     }
 
     // open model
-    public static Model open(Model model) {
-        saveChanges(model);
-        String fName = getFileName(model.getFileName(), true);
-        Model newModel = null;
+    public static Model openModel(Model model) {
+        model.fileName = Utilities.getFileName((String) null, true);
         try {
-            ObjectInputStream is = new ObjectInputStream(new FileInputStream(fName));
-            newModel = (Model)is.readObject();
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream(model.fileName));
+            model = (Model)is.readObject();
             is.close();
+            return model;
         } catch (Exception err) {
+            model.setUnsavedChanges(true);
             Utilities.error(err);
         }
-        return newModel;
+        return null;
     }
 
     // simple menu maker

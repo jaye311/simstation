@@ -9,6 +9,7 @@ import mvc.*;
 public class MinefieldPanel extends AppPanel {
     private JButton N, E, S, W, NW, NE, SW, SE;
     private MinefieldView view; // View to display the minefield
+    private boolean dialogShown;
 
     public void buttonLayout(){
         JPanel p;
@@ -35,6 +36,8 @@ public class MinefieldPanel extends AppPanel {
 
     public MinefieldPanel(AppFactory factory) {
         super(factory);
+        dialogShown = false;
+        this.model.subscribe(this);
 
 //        // Creates and adds the MinefieldView
 //        view = new MinefieldView(((MineField) model));
@@ -72,14 +75,19 @@ public class MinefieldPanel extends AppPanel {
 
     @Override
     public void update() {
+        System.out.println("MinefieldPanel update");
         MineField mineField = (MineField) model;
-        // Shows dialogue to player on game end
-        if(!mineField.isPlayerLiving()){
-            Utilities.inform("You lose!");
-        }else if(mineField.playerWinState()){
-            Utilities.inform("You win");
+        if (!dialogShown) {
+            if (!mineField.isPlayerLiving()) {
+                dialogShown = true;
+                SwingUtilities.invokeLater(() -> Utilities.inform("You lose!"));
+            } else if (mineField.playerWinState()) {
+                dialogShown = true;
+                SwingUtilities.invokeLater(() -> Utilities.inform("You win!"));
+            }
         }
     }
+
 
     public static void main(String[] args) {
         AppFactory factory = new MinefieldFactory();

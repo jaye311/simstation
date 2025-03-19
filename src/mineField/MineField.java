@@ -14,7 +14,7 @@ public class MineField extends Model {
 
     public MineField(){
         fieldSize = 20;
-        percentMined = 0;
+        percentMined = 10;
         playerX = 0;
         playerY = 0;
         playerLiving = true;
@@ -76,7 +76,7 @@ public class MineField extends Model {
     //use this method for MoveCommand given a direction moves the player in that direction by 1 cell
     public void move(String direction) throws MineFieldException{
         if(!playerLiving) {
-            throw new MineFieldException("You've lost!");
+            throw new MineFieldException("You've already lost!");
         }else if(playerWinState) {
             throw new MineFieldException("You've already won!");
         }else{
