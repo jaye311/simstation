@@ -6,8 +6,6 @@ public class MineFieldTest {
     public static void main(String[] args) {
         MineField mf = new MineField();
 //        mf.setFieldSize(10);
-//        mf.setPercentMined(10);
-//        mf.setMines();
         mf.textRepresentation();
         Scanner scanner = new Scanner(System.in);
         String direction;

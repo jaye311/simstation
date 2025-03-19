@@ -71,7 +71,7 @@ public class MinefieldPanel extends AppPanel {
 
         SE.addActionListener(this);
     }
-
+    //for the first win and loss, not an Exception
     @Override
     public void update() {
         //System.out.println("MinefieldPanel update");
