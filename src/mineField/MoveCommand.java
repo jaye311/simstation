@@ -12,8 +12,13 @@ public class MoveCommand extends Command {
         this.model = (MineField) model;
         this.direction = direction;
     }
-    public void execute() {
-        model.move(direction);
+    public void execute ()  {
+        try{
+            model.move(direction);
+        }
+        catch(MineFieldException e){
+            Utilities.inform(e.getMessage());
+        }
 //        model.getField()[model.getX()][model.getY()].setSteppedOn(true); // Mark as visited
         model.changed();
     }

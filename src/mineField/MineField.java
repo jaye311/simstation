@@ -74,7 +74,7 @@ public class MineField extends Model {
             percentMined = percent;
     }
     //use this method for MoveCommand
-    public void move(String direction) {
+    public void move(String direction) throws MineFieldException{
         if(!playerLiving) {
             Utilities.error("You are dead!");
         }else if(playerWinState) {
