@@ -73,7 +73,7 @@ public class MineField extends Model {
         if(percent <= 100 && percent >= 0)
             percentMined = percent;
     }
-    //use this method for MoveCommand
+    //use this method for MoveCommand given a direction moves the player in that direction by 1 cell
     public void move(String direction) throws MineFieldException{
         if(!playerLiving) {
             Utilities.error("You are dead!");
@@ -108,7 +108,7 @@ public class MineField extends Model {
                 if (playerY > 0) {
                     validMove = true;
                     playerY--;
-                    System.out.println("North to: " + playerX + ", " + playerY);
+                    //System.out.println("North to: " + playerX + ", " + playerY);
                 }
             }
             if (direction.equals("S")) {
