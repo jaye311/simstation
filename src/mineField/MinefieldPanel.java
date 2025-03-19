@@ -8,7 +8,6 @@ import mvc.*;
 
 public class MinefieldPanel extends AppPanel {
     private JButton N, E, S, W, NW, NE, SW, SE;
-    private MinefieldView view; // View to display the minefield
     private boolean dialogShown;
 
     public void buttonLayout(){
@@ -75,7 +74,7 @@ public class MinefieldPanel extends AppPanel {
 
     @Override
     public void update() {
-        System.out.println("MinefieldPanel update");
+        //System.out.println("MinefieldPanel update");
         MineField mineField = (MineField) model;
         if (!dialogShown) {
             if (!mineField.isPlayerLiving()) {
