@@ -22,7 +22,7 @@ public class MineField extends Model {
         setMines();
     }
 
-
+    //sets mines on field cells, and updates correct count of adjacent mines
     public void setMines(){
         field = new Cell[fieldSize][fieldSize];
         for(int row = 0; row < field.length; row++){
@@ -196,7 +196,7 @@ public class MineField extends Model {
         return dialogShown;
     }
 
-    //for testing only not for users
+    //for testing only, not for users
     public void textRepresentation(){
         for(int row = 0; row < field.length; row++) {
             for (int col = 0; col < field.length; col++) {

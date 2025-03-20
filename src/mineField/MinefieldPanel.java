@@ -36,12 +36,6 @@ public class MinefieldPanel extends AppPanel {
     public MinefieldPanel(AppFactory factory) {
         super(factory);
         dialogShown = false;
-        this.model.subscribe(this);
-
-//        // Creates and adds the MinefieldView
-//        view = new MinefieldView(((MineField) model));
-//        model.subscribe(view); // Allows the view to update according to changes
-//        this.add(view);
 
         N = new JButton("N");
         E = new JButton("E");
