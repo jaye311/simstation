@@ -1,11 +1,10 @@
 package mvc;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 // AppPanel is the MVC controller
-public class AppPanel extends JPanel implements Subscriber, ActionListener  {
+public class AppPanel extends JPanel implements Subscriber, ActionListener {
 
     protected Model model;
     protected AppFactory factory;
@@ -20,8 +19,12 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         // initialize fields here
         this.factory = factory;
         model = factory.makeModel();
+        model.subscribe(this);
         view = factory.makeView(model);
         controlPanel = new JPanel();
+
+        Color backgroundColor = Color.PINK;
+        controlPanel.setBackground(backgroundColor);
 
         this.setLayout((new GridLayout(1, 2)));
         add(controlPanel);
@@ -32,6 +35,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         frame.setJMenuBar(createMenuBar());
         frame.setTitle(factory.getTitle());
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.pack();
     }
 
     public void display() { frame.setVisible(true); }
@@ -78,13 +82,23 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
             } else if (cmmd.equals("SaveAs")) {
                 Utilities.save(model, true);
             } else if (cmmd.equals("Open")) {
-                Model newModel = Utilities.open(model);
-                if (newModel != null) setModel(newModel);
+                if(model.getUnsavedChanges()){
+                    if(Utilities.confirm("Are you sure? Unsaved changes will be lost!")){
+                        Model newModel = Utilities.openModel(model);
+                        if (newModel != null) setModel(newModel);
+                    }
+                }
+
             } else if (cmmd.equals("New")) {
-                Utilities.saveChanges(model);
-                setModel(factory.makeModel());
-                // needed cuz setModel sets to true:
-                model.setUnsavedChanges(false);
+                if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
+                    setModel(factory.makeModel());
+                    model.setUnsavedChanges(false);
+                    model.fileName = null;
+                }
+                //Utilities.saveChanges(model);
+                //setModel(factory.makeModel());
+                // // needed cuz setModel sets to true:
+                //model.setUnsavedChanges(false);
             } else if (cmmd.equals("Quit")) {
                 Utilities.saveChanges(model);
                 System.exit(0);

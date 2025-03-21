@@ -34,4 +34,8 @@ public class Publisher {
             sb.update();
         }
     }
+
+    public List<Subscriber> getSubscribers() {
+        return subscribers;
+    }
 }
