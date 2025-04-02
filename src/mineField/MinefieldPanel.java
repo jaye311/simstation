@@ -31,23 +31,6 @@ public class MinefieldPanel extends AppPanel {
         p.add(S);
         p.add(SE);
         controlPanel.add(p);
-    }
-
-    public MinefieldPanel(AppFactory factory) {
-        super(factory);
-        dialogShown = false;
-
-        N = new JButton("N");
-        E = new JButton("E");
-        S = new JButton("S");
-        W = new JButton("W");
-        NW = new JButton("NW");
-        NE = new JButton("NE");
-        SW = new JButton("SW");
-        SE = new JButton("SE");
-
-        controlPanel.setLayout(new GridLayout(3, 3));
-        buttonLayout();
 
         N.addActionListener(this);
 
@@ -65,23 +48,23 @@ public class MinefieldPanel extends AppPanel {
 
         SE.addActionListener(this);
     }
-    //for the first win and loss, not an Exception
-    @Override
-    public void update() {
-        //System.out.println("MinefieldPanel update");
-        MineField mineField = (MineField) model;
-        dialogShown = mineField.hasDialogBeenShown();
-        if (!dialogShown) {
-            if (!mineField.isPlayerLiving()) {
-                dialogShown = true;
-                Utilities.inform("You lose!");
-            } else if (mineField.playerWinState()) {
-                dialogShown = true;
-                Utilities.inform("You win!");
-            }
-        }
-    }
 
+    public MinefieldPanel(AppFactory factory) {
+        super(factory);
+        dialogShown = false;
+
+        N = new JButton("N");
+        E = new JButton("E");
+        S = new JButton("S");
+        W = new JButton("W");
+        NW = new JButton("NW");
+        NE = new JButton("NE");
+        SW = new JButton("SW");
+        SE = new JButton("SE");
+
+        controlPanel.setLayout(new GridLayout(3, 3));
+        buttonLayout();
+    }
 
     public static void main(String[] args) {
         AppFactory factory = new MinefieldFactory();

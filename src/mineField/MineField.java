@@ -10,7 +10,6 @@ public class MineField extends Model {
     private int playerY;
     private boolean playerLiving;
     private boolean playerWinState;
-    private boolean dialogShown;
 
     public MineField(){
         fieldSize = 20;
@@ -18,7 +17,6 @@ public class MineField extends Model {
         playerY = 0;
         playerLiving = true;
         playerWinState = false;
-        dialogShown = false;
         setMines();
     }
 
@@ -152,7 +150,7 @@ public class MineField extends Model {
             if(playerY == fieldSize - 1 && playerX == fieldSize - 1){
                 playerWinState = true;
             }
-            notifySubscribers();
+            changed();
         }
     }
 
@@ -190,10 +188,6 @@ public class MineField extends Model {
 
     public boolean isSteppedOn(int row, int col){
         return field[row][col].isSteppedOn();
-    }
-
-    public boolean hasDialogBeenShown(){
-        return dialogShown;
     }
 
     //for testing only, not for users

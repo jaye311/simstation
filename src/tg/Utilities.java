@@ -1,10 +1,12 @@
-package mvc;
+package tg;
 
-import java.awt.event.*;
+import mvc.Model;
+
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Random;
-import javax.swing.*;
+
 //Problem
 //What's the difference between a function and a method? Technically, methods have an implicit parameter (this) which refers to the object that "owns" the method. A method describes some behavior of its owner. For example, the withdraw and deposit methods of a bank account object describe how its balance changes. On the other hand, a function simply describes an algorithm rather than a behavior. For example, trig functions like sine and cosine aren't object behaviors.
 //

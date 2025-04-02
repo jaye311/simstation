@@ -1,6 +1,8 @@
 package mvc;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 
 // AppPanel is the MVC controller
@@ -10,9 +12,10 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
     protected AppFactory factory;
     protected View view;
     protected JPanel controlPanel;
-    private JFrame frame;
-    public static int FRAME_WIDTH = 500;
-    public static int FRAME_HEIGHT = 300;
+    protected JFrame frame;
+    List<String> history = new ArrayList<String>();
+    public static int FRAME_WIDTH = 1000;
+    public static int FRAME_HEIGHT = 500;
 
     public AppPanel(AppFactory factory) {
 
@@ -22,20 +25,17 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         model.subscribe(this);
         view = factory.makeView(model);
         controlPanel = new JPanel();
-
-        Color backgroundColor = Color.PINK;
-        controlPanel.setBackground(backgroundColor);
-
-        this.setLayout((new GridLayout(1, 2)));
+        controlPanel.setBackground(Color.PINK);
+        setLayout((new GridLayout(1, 2)));
         add(controlPanel);
         add(view);
+        view.setBackground(Color.GRAY);
         frame = new SafeFrame();
         Container cp = frame.getContentPane();
         cp.add(this);
         frame.setJMenuBar(createMenuBar());
         frame.setTitle(factory.getTitle());
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.pack();
     }
 
     public void display() { frame.setVisible(true); }
@@ -67,7 +67,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         result.add(editMenu);
 
         JMenu helpMenu =
-                Utilities.makeMenu("Help", new String[] {"About", "Help"}, this);
+                Utilities.makeMenu("Help", new String[] {"About", "Help", "History"}, this);
         result.add(helpMenu);
 
         return result;
@@ -82,23 +82,17 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
             } else if (cmmd.equals("SaveAs")) {
                 Utilities.save(model, true);
             } else if (cmmd.equals("Open")) {
-                if(model.getUnsavedChanges()){
-                    if(Utilities.confirm("Are you sure? Unsaved changes will be lost!")){
-                        Model newModel = Utilities.openModel(model);
-                        if (newModel != null) setModel(newModel);
-                    }
+                Model newModel = Utilities.open(model);
+                if (newModel != null) {
+                    setModel(newModel);
+                    history.clear();
                 }
-
             } else if (cmmd.equals("New")) {
-                if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
-                    setModel(factory.makeModel());
-                    model.setUnsavedChanges(false);
-                    model.fileName = null;
-                }
-                //Utilities.saveChanges(model);
-                //setModel(factory.makeModel());
-                // // needed cuz setModel sets to true:
-                //model.setUnsavedChanges(false);
+                Utilities.saveChanges(model);
+                setModel(factory.makeModel());
+                history.clear();
+                // needed cuz setModel sets to true:
+                model.setUnsavedChanges(false);
             } else if (cmmd.equals("Quit")) {
                 Utilities.saveChanges(model);
                 System.exit(0);
@@ -106,8 +100,14 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
                 Utilities.inform(factory.about());
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
-            } else {
-                factory.makeEditCommand(model, ae.getActionCommand(), ae.getSource()).execute();
+            }
+            else if (cmmd.equals("History")) {
+                Utilities.inform(history.toArray(new String[history.size()]));
+            }
+            else { // must be from Edit menu
+                Command command = factory.makeEditCommand(model, cmmd, ae.getSource());
+                command.execute();
+                history.add(cmmd);
             }
         } catch (Exception e) {
             handleException(e);
