@@ -14,6 +14,7 @@ public abstract class World extends Model {
     private ObserverAgent observer = new ObserverAgent(this);
     private List<Agent> agents= new ArrayList<>();
     public void addAgent(Agent a){
+    	a.world = this;
         agents.add(a);
     };
     public void startAgents(){

@@ -18,7 +18,6 @@ public abstract class Agent implements Runnable, Serializable {
     @Override
     public void run(){
         try {
-            myThread.run();
             while (!stopped && !paused)
                 update();
             onStart();
@@ -30,7 +29,11 @@ public abstract class Agent implements Runnable, Serializable {
         }
     }
     public void start() {
-        run();
+    	if (myThread == null) {
+    		myThread = new Thread(this);
+    	}
+    	myThread.start();
+        
     }
     public void stop() {
         stopped = true;
