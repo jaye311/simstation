@@ -20,9 +20,6 @@ public class WorldView extends View {
     public void propertyChanged(int x, int y, int h, int w){
         repaint(x, y, h, w);
     }
-    public void repaint(int x, int y, int h, int w){
-
-    }
     public void drawAgent(Agent a, Graphics gc){
         Color oldColor = gc.getColor();
         gc.setColor(Color.RED);
