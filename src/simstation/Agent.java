@@ -1,5 +1,8 @@
 package simstation;
 
+import mvc.Utilities;
+
+import java.awt.*;
 import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
@@ -7,36 +10,52 @@ public abstract class Agent implements Runnable, Serializable {
     protected int xc;
     protected int yc;
     protected boolean paused = false;
-    protected boolean stopped = false;
+    volatile protected boolean stopped = false;
     protected String agentName;
-    transient protected Thread myThread;
+    volatile transient protected Thread myThread;
     public Agent(){
     }
     public Agent(World world){
         this.world = world;
+        xc = Utilities.rng.nextInt(World.SIZE);
+        yc = Utilities.rng.nextInt(World.SIZE);
     }
     @Override
     public void run(){
-        try {
-            while (!stopped && !paused)
-                update();
-            onStart();
-            onInterrupted();
-            onExit();
+        onStart();
+        Thread thisThread = myThread;
+        while(thisThread == myThread) {
+            try {
+                while (!stopped) {
+                    update();
+                    if (paused) {
+                        synchronized (this) {
+                            while (paused && thisThread == myThread)
+                                wait(50);
+                        }
+                    }
+                }
+                if (stopped)
+                    stop();
+            }
+            catch (InterruptedException i){
+                onInterrupted();
+            }
+            catch (Exception e) {
+                System.err.println(e.getMessage());//eventually remove this
+            }
         }
-        catch(Exception e){
-            System.err.println(e.getMessage());
-        }
+        onExit();
     }
     public void start() {
     	if (myThread == null) {
     		myThread = new Thread(this);
     	}
     	myThread.start();
-        
     }
     public void stop() {
         stopped = true;
+        myThread = null;
     }
     public void pause() {
         paused = true;
@@ -45,7 +64,10 @@ public abstract class Agent implements Runnable, Serializable {
         paused = false;
     }
     public abstract void update() throws Exception;
-    public void onStart(){};
-    public void onInterrupted(){};
-    public void onExit(){};
+    public void onStart(){}
+    public void onInterrupted(){}
+    public void onExit(){}
+    public Dimension getPoint(){
+        return new Dimension(xc, yc);
+    }
 }

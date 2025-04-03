@@ -29,11 +29,14 @@ public abstract class MobileAgent extends Agent{
                 yc = World.SIZE;
             else if(yc > World.SIZE)
                 yc = 0;
-            myThread.sleep(20);
+            Thread.sleep(20);
             world.changed();
         }
     }
     public void turn(Heading dir){
         heading = dir;
+    }
+    public Heading getHeading(){
+        return heading;
     }
 }

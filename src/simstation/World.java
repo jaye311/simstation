@@ -3,6 +3,7 @@ package simstation;
 import mvc.Model;
 import mvc.Utilities;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,14 +16,18 @@ public abstract class World extends Model {
     private List<Agent> agents= new ArrayList<>();
     public void addAgent(Agent a){
     	a.world = this;
+        a.xc = Utilities.rng.nextInt(World.SIZE);
+        a.yc = Utilities.rng.nextInt(World.SIZE);
         agents.add(a);
-    };
+    }
     public void startAgents(){
+        if(!agents.isEmpty())
+            agents.clear();
         populate();
         for(Agent a: agents){
             a.start();
         }
-    };
+    }
     public void stopAgents(){
         for(Agent a: agents){
             a.stop();
@@ -40,7 +45,7 @@ public abstract class World extends Model {
     }
     public abstract void populate();
     public String getStatus(){
-        return null;
+        return "Clock: " + getClock() + "\nAlive: "+ getAlive();
     }
     public void updateStatistics(){
         clock++;
@@ -51,8 +56,17 @@ public abstract class World extends Model {
         }
         alive = count;
     }
-    public void changed(String name, int oldPoint, int newPoint){
-        changed();
+    public void changed(String name, Dimension oldPoint, Dimension newPoint){
+        Agent movedAgent = null;
+        for(Agent a: agents){
+            if(a.agentName.equals(name))
+                movedAgent = a;
+        }
+        if (null == movedAgent) {
+            return;
+        }
+        movedAgent.xc = newPoint.width;
+        movedAgent.yc = newPoint.height;
     }
     public Agent getNeighbor(Agent caller, int radius){
         int ogIndex = Utilities.rng.nextInt(agents.size());
@@ -79,31 +93,12 @@ public abstract class World extends Model {
         return clock;
     }
 
-    public void setClock(int clock) {
-        this.clock = clock;
-    }
-
     public int getAlive() {
         return alive;
-    }
-
-    public void setAlive(int alive) {
-        this.alive = alive;
     }
 
     public ObserverAgent getObserver() {
         return observer;
     }
 
-    public void setObserver(ObserverAgent observer) {
-        this.observer = observer;
-    }
-
-    public List<Agent> getAgents() {
-        return agents;
-    }
-
-    public void setAgents(List<Agent> agents) {
-        this.agents = agents;
-    }
 }
