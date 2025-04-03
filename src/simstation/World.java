@@ -21,11 +21,11 @@ public abstract class World extends Model {
         agents.add(a);
     }
     public void startAgents(){
-        if(!agents.isEmpty())
-            agents.clear();
-        populate();
-        for(Agent a: agents){
-            a.start();
+        if(agents.isEmpty()){
+            populate();
+            for(Agent a: agents){
+                a.start();
+            }
         }
     }
     public void stopAgents(){
