@@ -1,0 +1,19 @@
+package simstation.greed;
+
+import mvc.Model;
+import mvc.View;
+import simstation.WorldFactory;
+
+public class GreedFactory extends WorldFactory {
+
+	 @Override
+	    public Model makeModel() {
+	        return new GreedSimulation();
+	    }
+	 
+	 @Override
+	 public View makeView (Model model) {
+		 return new GreedView(model);
+	 }
+
+}
