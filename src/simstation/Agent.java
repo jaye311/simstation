@@ -63,7 +63,9 @@ public abstract class Agent implements Runnable, Serializable {
     public void resume() {
         paused = false;
     }
+    
     public abstract void update() throws Exception;
+
     public void onStart(){}
     public void onInterrupted(){}
     public void onExit(){}

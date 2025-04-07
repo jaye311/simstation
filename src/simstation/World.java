@@ -14,12 +14,14 @@ public abstract class World extends Model {
     private int alive = 0;
     private ObserverAgent observer = new ObserverAgent(this);
     private List<Agent> agents= new ArrayList<>();
+
     public void addAgent(Agent a){
     	a.world = this;
         a.xc = Utilities.rng.nextInt(World.SIZE);
         a.yc = Utilities.rng.nextInt(World.SIZE);
         agents.add(a);
     }
+
     public void startAgents(){
         if(!agents.isEmpty())
             agents.clear();
@@ -28,25 +30,31 @@ public abstract class World extends Model {
             a.start();
         }
     }
+
     public void stopAgents(){
         for(Agent a: agents){
             a.stop();
         }
     }
+
     public void pauseAgents(){
         for(Agent a: agents){
             a.pause();
         }
     }
+
     public void resumeAgents(){
         for(Agent a: agents){
             a.resume();
         }
     }
+
     public abstract void populate();
+
     public String getStatus(){
         return "Clock: " + getClock() + "\nAlive: "+ getAlive();
     }
+
     public void updateStatistics(){
         clock++;
         int count = 0;
@@ -56,6 +64,7 @@ public abstract class World extends Model {
         }
         alive = count;
     }
+
     public void changed(String name, Dimension oldPoint, Dimension newPoint){
         Agent movedAgent = null;
         for(Agent a: agents){
@@ -68,6 +77,7 @@ public abstract class World extends Model {
         movedAgent.xc = newPoint.width;
         movedAgent.yc = newPoint.height;
     }
+
     public Agent getNeighbor(Agent caller, int radius){
         int ogIndex = Utilities.rng.nextInt(agents.size());
         int index = ogIndex;
@@ -84,7 +94,6 @@ public abstract class World extends Model {
         return null;
     }
 
-
     public Iterator<Agent> iterator() {
         return agents.iterator();
     }
@@ -100,5 +109,5 @@ public abstract class World extends Model {
     public ObserverAgent getObserver() {
         return observer;
     }
-
 }
+

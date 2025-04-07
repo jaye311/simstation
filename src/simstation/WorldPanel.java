@@ -50,13 +50,14 @@ public class WorldPanel extends AppPanel {
         p.add(button);
         threadPanel.add(p);
 
-        controlPanel.setLayout(new BorderLayout());
+        // controlPanel.setLayout(new BorderLayout());
 
         p = new JPanel();
         p.setOpaque(false);
         p.add(threadPanel);
 
-        controlPanel.add(p,  BorderLayout.NORTH);
+        // controlPanel.add(p,  BorderLayout.NORTH);
+        controlPanel.add(p);
         frame.pack();
     }
     @Override

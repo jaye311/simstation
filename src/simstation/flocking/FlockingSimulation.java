@@ -8,7 +8,7 @@ public class FlockingSimulation extends World {
 
     @Override
     public void populate() {
-        for(int i = 0; i < 200; i++)
+        for(int i = 0; i < 50; i++)
             addAgent(new Bird());
     }
 

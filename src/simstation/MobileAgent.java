@@ -1,6 +1,6 @@
 package simstation;
 
-public abstract class MobileAgent extends Agent{
+public abstract class MobileAgent extends Agent {
     protected Heading heading;
     public MobileAgent(){
         super();
