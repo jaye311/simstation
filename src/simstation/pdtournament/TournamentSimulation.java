@@ -1,9 +1,7 @@
 package simstation.pdtournament;
 
-import mvc.AppPanel;
 import simstation.Agent;
 import simstation.World;
-import simstation.WorldPanel;
 import simstation.pdtournament.strategies.*;
 
 import java.util.Iterator;
@@ -67,12 +65,8 @@ public class TournamentSimulation extends World {
     @Override
     public String getStatus(){
         String s = super.getStatus();
-        return s+ "\nCheaterAvgFitness: "+ cheatFitness+ "\nCooperatorAvgFitness: "+ coopFitness +
-                "\nRandomCooperatorAvgFitness: " + randFitness+ "\nTit4TatAvgFitness: "+ tit4tatFitness;
+        return s+ "\n#Cheater Average Fitness: "+ cheatFitness+ "\n#Cooperator Average Fitness: "+ coopFitness +
+                "\n#RandomCooperator Average Fitness: " + randFitness+ "\n#Tit4Tat(er) Average Fitness: "+ tit4tatFitness;
     }
 
-    public static void main(String[] args) {
-        AppPanel panel = new WorldPanel(new TournamentFactory());
-        panel.display();
-    }
 }

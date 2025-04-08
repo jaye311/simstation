@@ -5,15 +5,18 @@ import simstation.World;
 
 public class Prisoner extends Agent {
     private Strategy myStrategy;
+    private int fitness = 0;
+    private boolean partnerCheated;
+    private boolean cheated;
     public Prisoner(Strategy strategy){
         myStrategy = strategy;
         strategy.myPrisoner = this;
+        cheated = cooperate();
     }
     @Override
     public void update() {
-        boolean curStrategy = cooperate();
-        partnerCheated = ((Prisoner)world.getNeighbor(this, World.SIZE)).getCooperation();
-        if(curStrategy) {
+        partnerCheated = ((Prisoner)world.getNeighbor(this, World.SIZE)).getCheated();
+        if(cheated) {
             if(!partnerCheated)
                 updateFitness(3);
         }
@@ -23,28 +26,31 @@ public class Prisoner extends Agent {
             else
                 updateFitness(1);
         }
+        cheated = cooperate();
+        //to decrease rate of fitness increase - better viewing experience - Prisoners had to think hard
+        try{
+            Thread.sleep(100);
+        }
+        catch (InterruptedException e){
+            onInterrupted();
+        }
     }
-    private int fitness = 0;
-    private boolean partnerCheated = false;
     public boolean cooperate() { return myStrategy.cooperate(); }
-    public void updateFitness(int amt){
+    public void updateFitness(int amt) {
         fitness += amt;
     }
     public boolean getPartnerCheated(){
         return partnerCheated;
     }
-    //for testing
-    public void setPartnerCheated(boolean cheated){
-        partnerCheated = cheated;
-    }
-    public boolean getCooperation(){
-        return cooperate();
-    }
+    public boolean getCheated(){return cheated;}
     public int getFitness(){
         return fitness;
     }
     public Strategy getMyStrategy(){
         return myStrategy;
     }
-
+    //for testing
+    public void setPartnerCheated(boolean cheated){
+        partnerCheated = cheated;
+    }
 }

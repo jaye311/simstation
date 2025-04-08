@@ -3,6 +3,7 @@ package simstation.pdtournament;
 import simstation.pdtournament.strategies.*;
 
 public class TestPrisoner {
+    //testing if strategies work
     public static void main(String[] args) {
         Prisoner cheater = new Prisoner(new Cheat());
         Prisoner cooperator = new Prisoner(new Cooperate());

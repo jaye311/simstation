@@ -9,6 +9,7 @@ import java.util.Iterator;
 public class WorldView extends View {
     public WorldView(Model model) {
         super(model);
+        setPreferredSize(new Dimension(World.SIZE, World.SIZE));
     }
     public void paintComponent(Graphics gc){
         super.paintComponent(gc);

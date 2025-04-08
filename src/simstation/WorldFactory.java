@@ -42,11 +42,13 @@ public abstract class WorldFactory implements AppFactory {
 
     @Override
     public String[] getHelp() {
-        return new String[]{"Press start"};
+        return new String[]{"Start starts the simulation","Pause pauses the simulation", "Resume resumes the simulation",
+                "Stop stops the simulation(Agents die, simulation must be restarted)"
+                , "Stats displays statistics of simulation"};
     }
 
     @Override
     public String about() {
-        return "2025 Johnathan Aye Simstation";
+        return "2025 Simstation Johnathan Aye, Brendan Ly, Brian Brown";
     }
 }

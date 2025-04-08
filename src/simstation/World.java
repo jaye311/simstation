@@ -68,19 +68,21 @@ public abstract class World extends Model {
         movedAgent.yc = newPoint[1];
     }
     public Agent getNeighbor(Agent caller, int radius){
+        //gets a random Agent from the List to start iterating from
         int ogIndex = Utilities.rng.nextInt(agents.size());
         int index = ogIndex;
-        //while steps to get to agent is greater than radius
-        while(Math.abs(agents.get(index).xc - caller.xc) + Math.abs(agents.get(index).yc - caller.yc) > radius) {
-            index++;
+        Agent neighbor = agents.get(index);
+        //while steps to get to neighbor is greater than radius, or the neighbor is the caller (You are not your neighbor)
+        while(Math.abs(neighbor.xc - caller.xc) + Math.abs(neighbor.yc - caller.yc) > radius || neighbor == caller) {
+            neighbor = agents.get(index++);
+            //no close enough neighbor
             if(index == ogIndex)
                 return null;
+            //make sure to iterate through the whole list for a potential neighbor within radius
             if(index == agents.size())
                 index = 0;
         }
-        if(Math.abs(agents.get(index).xc - caller.xc) + Math.abs(agents.get(index).yc - caller.yc) <= radius)
-            return agents.get(index);
-        return null;
+        return neighbor;
     }
 
     public Iterator<Agent> iterator() {
