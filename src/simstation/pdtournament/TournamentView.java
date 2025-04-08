@@ -13,7 +13,7 @@ public class TournamentView extends WorldView {
     }
     @Override
     public void drawAgent(Agent a, Graphics gc){
-        Dimension coords = a.getPoint();
+        int[] coords = a.getPoint();
         Color oldColor = gc.getColor();
         if(((Prisoner)a).getMyStrategy() instanceof Cooperate)
             gc.setColor(Color.GREEN);
@@ -24,7 +24,7 @@ public class TournamentView extends WorldView {
         if(((Prisoner)a).getMyStrategy() instanceof RandomlyCooperate)
             gc.setColor(Color.YELLOW);
 
-        gc.fillOval(coords.width, coords.height, 10, 10 );
+        gc.fillOval(coords[0], coords[1], 10, 10 );
         gc.setColor(oldColor);
     }
 }

@@ -10,7 +10,7 @@ public class Prisoner extends Agent {
         strategy.myPrisoner = this;
     }
     @Override
-    public void update() throws Exception {
+    public void update() {
         boolean curStrategy = cooperate();
         partnerCheated = ((Prisoner)world.getNeighbor(this, World.SIZE)).getCooperation();
         if(curStrategy) {
@@ -23,7 +23,6 @@ public class Prisoner extends Agent {
             else
                 updateFitness(1);
         }
-        Thread.sleep(20);
     }
     private int fitness = 0;
     private boolean partnerCheated = false;
@@ -47,4 +46,5 @@ public class Prisoner extends Agent {
     public Strategy getMyStrategy(){
         return myStrategy;
     }
+
 }

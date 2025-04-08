@@ -57,7 +57,6 @@ public class WorldPanel extends AppPanel {
         p.add(threadPanel);
 
         controlPanel.add(p,  BorderLayout.NORTH);
-        frame.pack();
     }
     @Override
     public void setModel(Model m) {

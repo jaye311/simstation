@@ -3,7 +3,6 @@ package simstation;
 import mvc.Model;
 import mvc.Utilities;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,11 +20,11 @@ public abstract class World extends Model {
         agents.add(a);
     }
     public void startAgents(){
-        if(agents.isEmpty()){
-            populate();
-            for(Agent a: agents){
-                a.start();
-            }
+        if(!agents.isEmpty())
+            agents.clear();
+        populate();
+        for(Agent a: agents){
+            a.start();
         }
     }
     public void stopAgents(){
@@ -45,7 +44,7 @@ public abstract class World extends Model {
     }
     public abstract void populate();
     public String getStatus(){
-        return "Clock: " + getClock() + "\nAlive: "+ getAlive();
+        return "#agents: " + agents.size() + "\n#living: "+ getAlive() + "\n#clock: " + getClock() ;
     }
     public void updateStatistics(){
         clock++;
@@ -56,7 +55,7 @@ public abstract class World extends Model {
         }
         alive = count;
     }
-    public void changed(String name, Dimension oldPoint, Dimension newPoint){
+    public void changed(String name, int[] oldPoint, int[] newPoint){
         Agent movedAgent = null;
         for(Agent a: agents){
             if(a.agentName.equals(name))
@@ -65,13 +64,13 @@ public abstract class World extends Model {
         if (null == movedAgent) {
             return;
         }
-        movedAgent.xc = newPoint.width;
-        movedAgent.yc = newPoint.height;
+        movedAgent.xc = newPoint[0];
+        movedAgent.yc = newPoint[1];
     }
     public Agent getNeighbor(Agent caller, int radius){
         int ogIndex = Utilities.rng.nextInt(agents.size());
         int index = ogIndex;
-        //while steps to get to agent is greater than looking radius
+        //while steps to get to agent is greater than radius
         while(Math.abs(agents.get(index).xc - caller.xc) + Math.abs(agents.get(index).yc - caller.yc) > radius) {
             index++;
             if(index == ogIndex)
@@ -83,7 +82,6 @@ public abstract class World extends Model {
             return agents.get(index);
         return null;
     }
-
 
     public Iterator<Agent> iterator() {
         return agents.iterator();
@@ -100,5 +98,4 @@ public abstract class World extends Model {
     public ObserverAgent getObserver() {
         return observer;
     }
-
 }
