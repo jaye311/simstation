@@ -102,8 +102,16 @@ public abstract class World extends Model {
         return clock;
     }
 
+    public void incrementClock() {
+        clock++;
+    }
+
     public int getAlive() {
         return alive;
+    }
+
+    public void setAlive(int x) {
+        alive = x;
     }
 
     public ObserverAgent getObserver() {

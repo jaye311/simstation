@@ -1,4 +1,4 @@
-package plague;
+package simstation.plague;
 
 import mvc.Model;
 import simstation.Agent;
@@ -15,6 +15,10 @@ public class PlagueView extends WorldView {
         Color oldColor = gc.getColor();
         Host host = (Host)a;
         gc.setColor(host.isInfected() ? Color.RED : Color.GREEN);
+        
+        if (host.isDead()) {
+          gc.setColor(Color.LIGHT_GRAY);
+        }
         Dimension point = a.getPoint();
         gc.fillOval(point.width, point.height, 10, 10);
         gc.setColor(oldColor);

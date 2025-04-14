@@ -1,4 +1,4 @@
-package plague;
+package simstation.plague;
 
 import mvc.Model;
 import mvc.View;

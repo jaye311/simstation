@@ -1,5 +1,6 @@
-package plague;
+package simstation.plague;
 
+import simstation.Agent;
 import simstation.World;
 import mvc.AppPanel;
 
@@ -10,6 +11,10 @@ public class PlagueSimulation extends World {
     public static int POPULATION_SIZE = 50; // # of initial hosts
     public static int FATALITY_TIME = 100;
     private boolean isFatal = false;
+    private int total = 0;
+    private int infected = 0;
+    // private int alive = 0;
+    // private int clock = 0;
 
     public void setInitialInfectedPercentage(int percentage) {
         PlagueSimulation.INITIAL_INFECTED = percentage;
@@ -44,19 +49,23 @@ public class PlagueSimulation extends World {
         }
     }
 
+    public void updateStatistics() {
+      incrementClock();
+      int count = 0;
+      for (var it = iterator(); it.hasNext();) {
+        Host host = (Host) it.next();
+        total++;
+        if (host.isInfected()) {
+          infected++;
+        }
+      }
+      setAlive(count);
+    }
+
     @Override
     public String getStatus() {
-        int total = 0;
-        int infected = 0;
-        for (var it = iterator(); it.hasNext();) {
-            Host host = (Host)it.next();
-            total++;
-            if (host.isInfected()) {
-                infected++;
-            }
-        }
         double percentage = total > 0 ? (infected * 100.0) / total : 0;
-        return String.format("Population: %d Infected: %.1f%%", total, percentage);
+        return String.format("Population: %d \n Infected: %.1f%% \n Clock: %d", total, percentage, getClock());
     }
 
     public static void main(String[] args) {

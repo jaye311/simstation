@@ -1,4 +1,4 @@
-package plague;
+package simstation.plague;
 
 import simstation.WorldPanel;
 import javax.swing.*;
