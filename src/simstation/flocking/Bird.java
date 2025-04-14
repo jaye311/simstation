@@ -9,7 +9,7 @@ public class Bird extends MobileAgent {
     public Bird()  {
         super();
         heading = Heading.random();
-        speed = Utilities.rng.nextInt(50) + 1;
+        speed = Utilities.rng.nextInt(20) + 1;
     }
     @Override
     public void update(){
@@ -17,7 +17,6 @@ public class Bird extends MobileAgent {
         Bird neighbor =(Bird) world.getNeighbor(this, 15);
         if(neighbor == null){
             heading = Heading.random();
-            speed = Utilities.rng.nextInt(20) + 1;
         }
         else{
             turn(neighbor.getHeading());

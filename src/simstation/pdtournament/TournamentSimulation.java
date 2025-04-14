@@ -68,5 +68,11 @@ public class TournamentSimulation extends World {
         return s+ "\n#Cheater Average Fitness: "+ cheatFitness+ "\n#Cooperator Average Fitness: "+ coopFitness +
                 "\n#RandomCooperator Average Fitness: " + randFitness+ "\n#Tit4Tat(er) Average Fitness: "+ tit4tatFitness;
     }
-
+    //for testing sets a specific prisoner location
+    public void addAgent(Agent a, int x, int y){
+        a.setXc(x);
+        a.setYc(y);
+        agents.add(a);
+        a.setWorld(this);
+    }
 }

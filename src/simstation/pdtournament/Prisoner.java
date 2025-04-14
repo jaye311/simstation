@@ -1,9 +1,10 @@
 package simstation.pdtournament;
 
-import simstation.Agent;
-import simstation.World;
+import mvc.Utilities;
+import simstation.Heading;
+import simstation.MobileAgent;
 
-public class Prisoner extends Agent {
+public class Prisoner extends MobileAgent {
     private Strategy myStrategy;
     private int fitness = 0;
     private boolean partnerCheated;
@@ -11,46 +12,60 @@ public class Prisoner extends Agent {
     public Prisoner(Strategy strategy){
         myStrategy = strategy;
         strategy.myPrisoner = this;
-        cheated = cooperate();
+        //I cheat if I do not cooperate
+        cheated = !cooperate();
+        partnerCheated = false;
     }
+
     @Override
     public void update() {
-        partnerCheated = ((Prisoner)world.getNeighbor(this, World.SIZE)).getCheated();
-        if(cheated) {
-            if(!partnerCheated)
-                updateFitness(3);
-        }
-        else{
-            if(!partnerCheated)
-                updateFitness(5);
-            else
-                updateFitness(1);
-        }
-        cheated = cooperate();
-        //to decrease rate of fitness increase - better viewing experience - Prisoners had to think hard
-        try{
-            Thread.sleep(100);
-        }
-        catch (InterruptedException e){
-            onInterrupted();
+        //moves in random direction a random amount
+        turn(Heading.random());
+        move(Utilities.rng.nextInt(15)+1);
+        //tries to find neighbor in radius to be in a dilemma with as partners
+        Prisoner partner = (Prisoner)world.getNeighbor(this, 15);
+        if(partner != null){
+            //find a partner and see if they cheated (did not cooperate)
+            partnerCheated = partner.getCheated();
+            if(!cheated) {
+                if(!partnerCheated) {
+                    //if we both cooperate
+                    updateFitness(3);
+                    partner.updateFitness(3);
+                }
+                else
+                    //they cheated me of my points
+                    partner.updateFitness(5);
+            }
+            else{
+                if(!partnerCheated) {
+                    //I cheated and got 5 when the partner tried to cooperate
+                    updateFitness(5);
+                }
+                else
+                    //We both cheated (Well at least I didn't get 0)
+                    updateFitness(1);
+            }
+            cheated = !cooperate();
         }
     }
+    //cooperate according to my strategy
     public boolean cooperate() { return myStrategy.cooperate(); }
-    public void updateFitness(int amt) {
+    //add amt to fitness
+    public synchronized void updateFitness(int amt) {
         fitness += amt;
     }
     public boolean getPartnerCheated(){
         return partnerCheated;
     }
-    public boolean getCheated(){return cheated;}
     public int getFitness(){
         return fitness;
     }
     public Strategy getMyStrategy(){
         return myStrategy;
     }
-    //for testing
-    public void setPartnerCheated(boolean cheated){
-        partnerCheated = cheated;
+    public void setPartnerCheated(boolean b){
+        partnerCheated = b;
     }
+    public boolean getCheated(){return cheated;}
 }

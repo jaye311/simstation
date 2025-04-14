@@ -42,8 +42,9 @@ public abstract class WorldFactory implements AppFactory {
 
     @Override
     public String[] getHelp() {
-        return new String[]{"Start starts the simulation","Pause pauses the simulation", "Resume resumes the simulation",
-                "Stop stops the simulation(Agents die, simulation must be restarted)"
+        return new String[]{"Start starts the simulation (Agents populate the world)",
+                "Pause pauses the simulation", "Resume resumes the simulation",
+                "Stop stops the simulation (Agents die, simulation must be restarted)"
                 , "Stats displays statistics of simulation"};
     }
 

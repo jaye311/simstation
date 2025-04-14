@@ -33,7 +33,6 @@ public abstract class Agent implements Runnable, Serializable {
                     synchronized (this) {
                         while (paused && !stopped) {
                             wait();
-                            paused = false;
                         }
                     }
                 }
@@ -57,15 +56,36 @@ public abstract class Agent implements Runnable, Serializable {
         paused = true;
     }
     public synchronized void resume() {
+        paused = false;
         notify();
+    }
+    public double getDistance (Agent other){
+        return Math.sqrt(Math.pow(other.xc - xc, 2) + Math.pow(other.yc - yc, 2));
     }
     public abstract void update();
     public void onStart(){}
-    public void onInterrupted(){Utilities.error("Interrupted!");}
+    public void onInterrupted(){}
     public void onExit(){}
     public int[] getPoint(){
         return new int[]{xc, yc};
     }
     public void setWorld(World w) { world = w; }
 
+    // wait for me to die:
+    public synchronized void join() {
+        try {
+            if (myThread != null)
+                myThread.join();
+        } catch (InterruptedException e) {
+            onInterrupted();
+        }
+    }
+
+    public void setXc(int xc) {
+        this.xc = xc;
+    }
+
+    public void setYc(int yc) {
+        this.yc = yc;
+    }
 }
