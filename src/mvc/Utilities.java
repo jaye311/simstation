@@ -139,6 +139,16 @@ public class Utilities {
         System.out.println(msg); // for now
     }
 
+    //sleep method for staggering updates.
+
+    public static void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } 	catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static int nextID = 100;
     public static int getID() {
         return nextID++;
