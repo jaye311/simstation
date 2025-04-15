@@ -25,9 +25,11 @@ public class GreedView extends WorldView {
 				Patch patch = meadow.getPatch(i, j);
 				if (patch != null) {
 					int energy = patch.energy; 
-					int green = Math.min(255, Math.max(0, energy * 2));
-					gc.setColor(new Color(0, green, 0));
+					gc.setColor(new Color(0, 255, 0));
 					gc.fillRect(i * patchSize, j * patchSize, patchSize, patchSize);
+					
+					gc.setColor(Color.WHITE);
+					gc.drawRect(i*patchSize, j*patchSize, patchSize, patchSize);
 				}
 				
 			}

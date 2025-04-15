@@ -36,7 +36,7 @@ public class Meadow extends World{
 	
 	public void setGrowthRate(int rate) {
 		for (int i = 0; i < dim; i++) {
-			for (int j = 0; i < dim; j++) {
+			for (int j = 0; j < dim; j++) {
 				patches[i][j].growbackrate = rate;
 			}
 		}

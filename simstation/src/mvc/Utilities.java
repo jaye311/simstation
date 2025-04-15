@@ -131,7 +131,17 @@ public class Utilities {
         }
         return result;
     }
-
+    
+    //sleep method for staggering updates. 
+    
+    public static void sleep(int milliseconds) {
+    	try {
+    		Thread.sleep(milliseconds);
+    	} 	catch (InterruptedException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
     // random number generator
     public static Random rng = new Random(System.currentTimeMillis());
 
