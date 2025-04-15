@@ -2,6 +2,7 @@ package simstation.commands;
 
 import mvc.Command;
 import mvc.Model;
+import mvc.Utilities;
 import simstation.World;
 
 public class StatsCommand extends Command {
@@ -12,6 +13,6 @@ public class StatsCommand extends Command {
     @Override
     public void execute() throws Exception {
         ((World) model).getObserver().update();
-        throw new Exception(((World)model).getStatus());
+        Utilities.inform(((World)model).getStatus());
     }
 }

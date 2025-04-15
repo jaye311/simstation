@@ -10,8 +10,8 @@ class Drunk extends MobileAgent {
         super();
     }
 
-    public void update() throws InterruptedException{
-        heading = Heading.random();
+    public void update() {
+        turn(Heading.random());
         int steps = Utilities.rng.nextInt(20) + 1;
         move(steps);
     }

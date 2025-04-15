@@ -2,7 +2,6 @@ package simstation;
 
 import mvc.Utilities;
 
-import java.awt.*;
 import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
@@ -10,66 +9,83 @@ public abstract class Agent implements Runnable, Serializable {
     protected int xc;
     protected int yc;
     protected boolean paused = false;
-    volatile protected boolean stopped = false;
+    protected boolean stopped = false;
     protected String agentName;
-    volatile transient protected Thread myThread;
+    protected transient Thread myThread;
     public Agent(){
+        agentName = "Agent " + Utilities.getID();
     }
+    //ObserverAgent constructor
     public Agent(World world){
-        this.world = world;
-        xc = Utilities.rng.nextInt(World.SIZE);
-        yc = Utilities.rng.nextInt(World.SIZE);
+        this();
+        setWorld(world);
     }
     @Override
     public void run(){
         onStart();
-        Thread thisThread = myThread;
-        while(thisThread == myThread) {
+        myThread = Thread.currentThread();
+        while(!stopped) {
             try {
-                while (!stopped) {
-                    update();
-                    if (paused) {
-                        synchronized (this) {
-                            while (paused && thisThread == myThread)
-                                wait(50);
+                update();
+                Thread.sleep(20);
+                world.changed();
+                if (paused) {
+                    synchronized (this) {
+                        while (paused && !stopped) {
+                            wait();
                         }
                     }
                 }
-                if (stopped)
-                    stop();
             }
             catch (InterruptedException i){
                 onInterrupted();
-            }
-            catch (Exception e) {
-                System.err.println(e.getMessage());//eventually remove this
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         }
         onExit();
     }
     public void start() {
-    	if (myThread == null) {
-    		myThread = new Thread(this);
-    	}
-    	myThread.start();
+        Thread thread = new Thread(this);
+    	thread.start();
     }
-    public void stop() {
+    public synchronized void stop() {
         stopped = true;
-        myThread = null;
     }
-    public void pause() {
+    public synchronized void pause() {
         paused = true;
     }
-    public void resume() {
+    public synchronized void resume() {
         paused = false;
+        notify();
     }
-    
-    public abstract void update() throws Exception;
-
+    public double getDistance (Agent other){
+        return Math.sqrt(Math.pow(other.xc - xc, 2) + Math.pow(other.yc - yc, 2));
+    }
+    public abstract void update();
     public void onStart(){}
     public void onInterrupted(){}
     public void onExit(){}
-    public Dimension getPoint(){
-        return new Dimension(xc, yc);
+    public int[] getPoint(){
+        return new int[]{xc, yc};
+    }
+    public void setWorld(World w) { world = w; }
+
+    // wait for me to die:
+    public synchronized void join() {
+        try {
+            if (myThread != null)
+                myThread.join();
+        } catch (InterruptedException e) {
+            onInterrupted();
+        }
+    }
+
+    public void setXc(int xc) {
+        this.xc = xc;
+    }
+
+    public void setYc(int yc) {
+        this.yc = yc;
     }
 }

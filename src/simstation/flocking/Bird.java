@@ -9,18 +9,17 @@ public class Bird extends MobileAgent {
     public Bird()  {
         super();
         heading = Heading.random();
-        speed = Utilities.rng.nextInt(50) + 1;
+        speed = Utilities.rng.nextInt(20) + 1;
     }
     @Override
-    public void update() throws Exception {
+    public void update(){
         move(speed);
-        Bird neighbor =(Bird) world.getNeighbor(this, 25);
+        Bird neighbor =(Bird) world.getNeighbor(this, 15);
         if(neighbor == null){
             heading = Heading.random();
-            speed = Utilities.rng.nextInt(50) + 1;
         }
         else{
-            heading = neighbor.getHeading();
+            turn(neighbor.getHeading());
             speed = neighbor.getSpeed();
         }
     }

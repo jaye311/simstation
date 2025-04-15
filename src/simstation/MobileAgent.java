@@ -5,11 +5,8 @@ public abstract class MobileAgent extends Agent {
     public MobileAgent(){
         super();
     }
-    public MobileAgent(World world) {
-        super(world);
-    }
 
-    public void move(int steps) throws InterruptedException{
+    public void move(int steps) {
         int i = 0;
         while(i < steps) {
             i++;
@@ -29,7 +26,6 @@ public abstract class MobileAgent extends Agent {
                 yc = World.SIZE;
             else if(yc > World.SIZE)
                 yc = 0;
-            Thread.sleep(20);
             world.changed();
         }
     }

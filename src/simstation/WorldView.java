@@ -17,9 +17,6 @@ public class WorldView extends View {
         while(agentIterator.hasNext())
             drawAgent(agentIterator.next(), gc);
     }
-    public void propertyChanged(int x, int y, int h, int w){
-        repaint(x, y, h, w);
-    }
     public void drawAgent(Agent a, Graphics gc){
         Color oldColor = gc.getColor();
         gc.setColor(Color.RED);
