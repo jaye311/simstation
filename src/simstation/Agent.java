@@ -66,7 +66,7 @@ public abstract class Agent implements Runnable, Serializable {
     public void onStart(){}
     public void onInterrupted(){}
     public void onExit(){}
-    public int[] getPoint(){
+    public int[] getPoint() {
         return new int[]{xc, yc};
     }
     public void setWorld(World w) { world = w; }

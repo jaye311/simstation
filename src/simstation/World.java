@@ -45,7 +45,9 @@ public abstract class World extends Model {
             a.resume();
         }
     }
+
     public abstract void populate();
+
     public String getStatus(){
         return "#agents: " + agents.size() + "\n#living: "+ getAlive() + "\n#clock: " + getClock() ;
     }
@@ -86,11 +88,20 @@ public abstract class World extends Model {
         return clock;
     }
 
+    public void incrementClock() {
+        clock++;
+    }
+
     public int getAlive() {
         return alive;
+    }
+
+    public void setAlive(int x) {
+        alive = x;
     }
 
     public ObserverAgent getObserver() {
         return observer;
     }
 }
+
