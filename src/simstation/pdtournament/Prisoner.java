@@ -21,9 +21,9 @@ public class Prisoner extends MobileAgent {
     public void update() {
         //moves in random direction a random amount
         turn(Heading.random());
-        move(Utilities.rng.nextInt(15)+1);
+        move(Utilities.rng.nextInt(20)+1);
         //tries to find neighbor in radius to be in a dilemma with as partners
-        Prisoner partner = (Prisoner)world.getNeighbor(this, 15);
+        Prisoner partner = (Prisoner)world.getNeighbor(this, 20);
         if(partner != null){
             //find a partner and see if they cheated (did not cooperate)
             partnerCheated = partner.getCheated();
