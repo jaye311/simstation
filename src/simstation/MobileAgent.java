@@ -1,15 +1,12 @@
 package simstation;
 
-public abstract class MobileAgent extends Agent{
+public abstract class MobileAgent extends Agent {
     protected Heading heading;
     public MobileAgent(){
         super();
     }
-    public MobileAgent(World world) {
-        super(world);
-    }
 
-    public void move(int steps) throws InterruptedException{
+    public void move(int steps) {
         int i = 0;
         while(i < steps) {
             i++;
@@ -29,11 +26,19 @@ public abstract class MobileAgent extends Agent{
                 yc = World.SIZE;
             else if(yc > World.SIZE)
                 yc = 0;
-            myThread.sleep(20);
+              
+              try {
+                Thread.sleep(20);
+              } catch (Exception e) {
+                System.err.println(e.getMessage());
+              }
             world.changed();
         }
     }
     public void turn(Heading dir){
         heading = dir;
+    }
+    public Heading getHeading(){
+        return heading;
     }
 }

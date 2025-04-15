@@ -1,5 +1,7 @@
 package simstation;
 
+import mvc.Utilities;
+
 import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
@@ -9,43 +11,81 @@ public abstract class Agent implements Runnable, Serializable {
     protected boolean paused = false;
     protected boolean stopped = false;
     protected String agentName;
-    transient protected Thread myThread;
+    protected transient Thread myThread;
     public Agent(){
+        agentName = "Agent " + Utilities.getID();
     }
+    //ObserverAgent constructor
     public Agent(World world){
-        this.world = world;
+        this();
+        setWorld(world);
     }
     @Override
     public void run(){
-        try {
-            while (!stopped && !paused)
+        onStart();
+        myThread = Thread.currentThread();
+        while(!stopped) {
+            try {
                 update();
-            onStart();
-            onInterrupted();
-            onExit();
+                Thread.sleep(20);
+                world.changed();
+                if (paused) {
+                    synchronized (this) {
+                        while (paused && !stopped) {
+                            wait();
+                        }
+                    }
+                }
+            }
+            catch (InterruptedException i){
+                onInterrupted();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         }
-        catch(Exception e){
-            System.err.println(e.getMessage());
-        }
+        onExit();
     }
     public void start() {
-    	if (myThread == null) {
-    		myThread = new Thread(this);
-    	}
-    	myThread.start();
-        
+        Thread thread = new Thread(this);
+    	thread.start();
     }
-    public void stop() {
+    public synchronized void stop() {
         stopped = true;
     }
-    public void pause() {
+    public synchronized void pause() {
         paused = true;
     }
-    public void resume() {
+    public synchronized void resume() {
         paused = false;
+        notify();
     }
-    public abstract void update() throws Exception;
-    public void onStart(){};
-    public void onInterrupted(){};
-    public void onExit(){};
+    public double getDistance (Agent other){
+        return Math.sqrt(Math.pow(other.xc - xc, 2) + Math.pow(other.yc - yc, 2));
+    }
+    public abstract void update();
+    public void onStart(){}
+    public void onInterrupted(){}
+    public void onExit(){}
+    public int[] getPoint() {
+        return new int[]{xc, yc};
+    }
+    public void setWorld(World w) { world = w; }
+
+    // wait for me to die:
+    public synchronized void join() {
+        try {
+            if (myThread != null)
+                myThread.join();
+        } catch (InterruptedException e) {
+            onInterrupted();
+        }
+    }
+
+    public void setXc(int xc) {
+        this.xc = xc;
+    }
+
+    public void setYc(int yc) {
+        this.yc = yc;
+    }
 }

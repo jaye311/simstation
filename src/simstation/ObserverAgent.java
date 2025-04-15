@@ -1,6 +1,6 @@
 package simstation;
 
-public class ObserverAgent extends Agent{
+public class ObserverAgent extends Agent {
     public ObserverAgent(World world) {
         super(world);
     }
