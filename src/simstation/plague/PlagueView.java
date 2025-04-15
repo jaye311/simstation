@@ -19,8 +19,8 @@ public class PlagueView extends WorldView {
         if (host.isDead()) {
           gc.setColor(Color.LIGHT_GRAY);
         }
-        Dimension point = a.getPoint();
-        gc.fillOval(point.width, point.height, 10, 10);
+        int[] point = a.getPoint();
+        gc.fillOval(point[0], point[1], 10, 10);
         gc.setColor(oldColor);
     }
 } 

@@ -32,12 +32,17 @@ public class Host extends MobileAgent {
     }
 
     @Override
-    public void update() throws Exception {
+    public void update() {
         // Random movement
         int steps = Utilities.rng.nextInt(10) + 1;
         heading = Heading.random();
 
         move(steps);
+        // try {
+        //   Thread.sleep(20);
+        // } catch (Exception e) {
+        //   System.err.println(e.getMessage());
+        // }
 
         if (infected) {
             timeSinceInfection++;

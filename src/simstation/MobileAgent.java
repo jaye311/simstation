@@ -26,6 +26,12 @@ public abstract class MobileAgent extends Agent {
                 yc = World.SIZE;
             else if(yc > World.SIZE)
                 yc = 0;
+              
+              try {
+                Thread.sleep(20);
+              } catch (Exception e) {
+                System.err.println(e.getMessage());
+              }
             world.changed();
         }
     }
