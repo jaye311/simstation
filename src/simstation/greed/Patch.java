@@ -5,26 +5,27 @@ import simstation.Agent;
 public class Patch extends Agent{
 	
 	int energy  = 100; 
-	int growbackrate = 1; 
+	public static int growBackRate = 1;
 	public static int patchSize = 10;
 
 	public Patch(Meadow m){
 		super(m);
 	}
+
 	synchronized void eatMe (Cow cow, int amt)   {
 		try {
-			if (cow.energy <= 0) {
-				cow.stop();
-			}
+			//eat grass
 			if (this.energy >= amt) {
 				this.energy = this.energy - amt;
 				cow.energy = cow.energy + amt;
-			} else if (cow.energy > ((Meadow) world).getMovePenalty()) {
+			}
+			//move away
+			else if (cow.energy > ((Meadow) world).getMovePenalty()) {
 				cow.moveToNewPatch();
 				cow.energy -= ((Meadow) world).getMovePenalty();
-
+			//wait to eat
 			} else {
-				this.wait();
+				wait();
                 cow.energy -= ((Meadow) world).getWaitPenalty();
 			}
 		}
@@ -37,12 +38,12 @@ public class Patch extends Agent{
 	@Override
 	public synchronized void update()  {
 		if (this.energy < 100) {
-			this.energy = this.energy + growbackrate;
+			this.energy = this.energy + growBackRate;
 			if (this.energy > 100)
 				this.energy = 100;
 		}
         notifyAll();
 	}
-	
+
 
 }

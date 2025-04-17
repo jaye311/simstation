@@ -1,8 +1,8 @@
 package simstation.plague;
 
 import simstation.WorldPanel;
+
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
@@ -64,12 +64,8 @@ public class PlaguePanel extends WorldPanel {
         fatalityToggle = new JToggleButton("Not Fatal");
         fatalityToggle.setPreferredSize(new Dimension(100, 30));
         fatalityToggle.setMaximumSize(new Dimension(100, 30));
-        fatalityToggle.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                fatalityToggle.setText(fatalityToggle.isSelected() ? "Fatal" : "Not Fatal");
-            }
-        });
+        fatalityToggle.addChangeListener(e -> fatalityToggle.setText(
+                fatalityToggle.isSelected() ? "Fatal" : "Not Fatal"));
         toggleWrapper.add(fatalityToggle);
 
         slidersPanel.add(infectedLabel);
@@ -102,5 +98,9 @@ public class PlaguePanel extends WorldPanel {
             simulation.setFatalityTime(fatalityTimeSlider.getValue());
             simulation.setFatal(fatalityToggle.isSelected());
         }
+    }
+    public static void main(String[] args) {
+        WorldPanel panel = new PlaguePanel(new PlagueFactory());
+        panel.display();
     }
 }

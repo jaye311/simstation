@@ -1,13 +1,10 @@
 package simstation.plague;
 
-import simstation.Agent;
 import simstation.World;
-import mvc.AppPanel;
 
 public class PlagueSimulation extends World {
     public static int INITIAL_INFECTED = 10; // % of hosts initially infected
     public static int VIRULENCE = 50; // % chance of infection
-    public static int RESISTANCE = 2; // % chance of resisting infection
     public static int POPULATION_SIZE = 50; // # of initial hosts
     public static int FATALITY_TIME = 100;
     private boolean isFatal = false;
@@ -68,8 +65,5 @@ public class PlagueSimulation extends World {
         return String.format("Population: %d \n Infected: %.1f%% \n Clock: %d", total, percentage, getClock());
     }
 
-    public static void main(String[] args) {
-        AppPanel panel = new PlaguePanel(new PlagueFactory());
-        panel.display();
-    }
+
 }

@@ -49,7 +49,7 @@ public class GreedPanel extends WorldPanel {
 	}
 	private void updateSimulationParameters() {
 		if (model instanceof Meadow) {
-			((Meadow) model).setGrowthRate(grassSlider.getValue());
+			Patch.growBackRate = grassSlider.getValue();
 			Cow.greediness = (greedSlider.getValue());
 			((Meadow)model).setMovePenalty(moveSlider.getValue());
 		}

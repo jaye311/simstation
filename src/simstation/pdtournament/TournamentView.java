@@ -3,7 +3,10 @@ package simstation.pdtournament;
 import mvc.Model;
 import simstation.Agent;
 import simstation.WorldView;
-import simstation.pdtournament.strategies.*;
+import simstation.pdtournament.strategies.Cheat;
+import simstation.pdtournament.strategies.Cooperate;
+import simstation.pdtournament.strategies.RandomlyCooperate;
+import simstation.pdtournament.strategies.Tit4Tat;
 
 import java.awt.*;
 

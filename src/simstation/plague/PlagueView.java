@@ -3,6 +3,7 @@ package simstation.plague;
 import mvc.Model;
 import simstation.Agent;
 import simstation.WorldView;
+
 import java.awt.*;
 
 public class PlagueView extends WorldView {

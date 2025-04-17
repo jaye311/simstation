@@ -1,8 +1,11 @@
 package simstation.randomWalk;
 
 
-import mvc.*;
-import simstation.*;
+import mvc.Model;
+import mvc.Utilities;
+import simstation.Heading;
+import simstation.MobileAgent;
+import simstation.WorldFactory;
 
 class Drunk extends MobileAgent {
 

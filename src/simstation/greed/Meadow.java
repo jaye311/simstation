@@ -3,7 +3,9 @@ package simstation.greed;
 import simstation.Agent;
 import simstation.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class Meadow extends World{
@@ -31,14 +33,7 @@ public class Meadow extends World{
 		}
 		return null; 
 	}
-	
-	public void setGrowthRate(int rate) {
-		for (int i = 0; i < dim; i++) {
-			for (int j = 0; j < dim; j++) {
-				patches[i][j].growbackrate = rate;
-			}
-		}
-	}
+
 	
 	public List<Cow> getCows() {
 		List<Cow> result = new ArrayList<>();
@@ -68,28 +63,51 @@ public class Meadow extends World{
 			c.location = getPatch(point[0]/Patch.patchSize, point[1]/Patch.patchSize );
 		}
 	}
-	//when starting set path energy to full
+	//make new meadow when starting
 	@Override
 	public synchronized void startAgents(){
+		super.startAgents();
 		for (int i = 0; i < dim; i++) {
 			for (int j = 0; j < dim; j++) {
-				patches[i][j].energy = 100;
-				patches[i][j].start();
+				synchronized (patches) {
+					patches[i][j] = new Patch(this);
+					patches[i][j].start();
+				}
 			}
 		}
-		super.startAgents();
 	}
-
-	//updates the amount of agents that are not stopped and increments a clock for updates
 	@Override
-	public synchronized void updateStatistics(){
-		incrementClock();
-		int count = 0;
-		for (Agent a: agents){
-			if(a instanceof Cow && !a.isStopped())
-				count++;
+	public synchronized void pauseAgents() {
+		super.pauseAgents();
+		for (int i = 0; i < dim; i++) {
+			for (int j = 0; j < dim; j++) {
+				synchronized (patches) {
+					patches[i][j].pause();
+				}
+			}
 		}
-		alive = count;
+	}
+	@Override
+	public synchronized void resumeAgents(){
+		super.resumeAgents();
+		for (int i = 0; i < dim; i++) {
+			for (int j = 0; j < dim; j++) {
+				synchronized (patches) {
+					patches[i][j].resume();
+				}
+			}
+		}
+	}
+	@Override
+	public synchronized void stopAgents(){
+		super.stopAgents();
+		for (int i = 0; i < dim; i++) {
+			for (int j = 0; j < dim; j++) {
+				synchronized (patches) {
+					patches[i][j].stop();
+				}
+			}
+		}
 	}
 
 	public int getWaitPenalty(){

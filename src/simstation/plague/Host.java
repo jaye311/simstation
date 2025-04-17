@@ -3,7 +3,6 @@ package simstation.plague;
 import mvc.Utilities;
 import simstation.Heading;
 import simstation.MobileAgent;
-import simstation.World;
 
 public class Host extends MobileAgent {
     private boolean infected;

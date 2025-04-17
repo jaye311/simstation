@@ -8,7 +8,7 @@ public abstract class MobileAgent extends Agent {
 
     public void move(int steps) {
         int i = 0;
-        while(i < steps) {
+        while(i < steps && !paused && !isStopped()) {
             i++;
             if(heading == Heading.NORTH)
                 yc++;
