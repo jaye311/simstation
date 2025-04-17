@@ -1,37 +1,20 @@
 package simstation.greed;
 
 import mvc.Utilities;
+import simstation.Heading;
 import simstation.MobileAgent;
-import simstation.World;
+
 
 public class Cow extends MobileAgent {
-	
-	
-	 int energy = 100;
-	 int greediness = 25; 
-	 boolean isDead = false;
-	 
 
-	 
-	 
-	 void eatGrass(Patch patch){
-		 if(patch.energy >= greediness) {
-			 patch.eatMe(this, greediness);
-		 } else {
-			moveToNewPatch(); 
-			energy -= ((Meadow) world).movePenalty; 
+	 protected int energy = 100;
+	 public static int greediness = 25;
+	 protected Patch location;
 
-		}
-	 
-	 }
-	 
-	 
-	 public void setPosition(int x, int y) {
-		 this.xc = x; 
-		 this.yc = y; 
-	 }
-	 
-	 private void moveToNewPatch() {
+
+
+	 //for if you want to go fast and be different
+	 /*public void moveToNewPatch() {
 		int attempts = 0; 
 		int oldPatchX = xc / Patch.patchSize; 
 		int oldPatchY = yc / Patch.patchSize; 
@@ -63,26 +46,24 @@ public class Cow extends MobileAgent {
 		
 		xc = Math.max(0, Math.min(xc + Utilities.rng.nextInt(11) - 5, World.SIZE - 1));
 		yc = Math.max(0, Math.min(yc + Utilities.rng.nextInt(11) - 5, World.SIZE - 1));
-	 }
-	 
-	 
-	 public void update() {
-		 if (this.energy <= 0) {
-			 stop(); 
-			 isDead = true; 
-		 } else {
-			 int patchX = this.xc / Patch.patchSize; 
-			 int patchY = this.yc / Patch.patchSize; 
-			 Patch currentPatch = ((Meadow) world).getPatch(patchX, patchY);
-			 eatGrass(currentPatch);
-			 energy -= ((Meadow) world).waitPenalty;
-			 ((Meadow) world).changed();
-			 
-			 Utilities.sleep(100);
-		 }
-		
-		 
+		location = ((Meadow) world).getPatch(xc/Patch.patchSize, yc/Patch.patchSize);
+	 }*/
+
+	public void moveToNewPatch() {
+		heading = Heading.random();
+		int steps = Utilities.rng.nextInt(5)*Patch.patchSize+Patch.patchSize;
+		move(steps);
+		location = ((Meadow) world).getPatch(xc/Patch.patchSize, yc/Patch.patchSize);
 	}
-	 
+	 @Override
+	 public void update()  {
+		 if (this.energy > 0) {
+             location.eatMe(this, greediness);
+		 }
+		 else {
+			 stop();
+		 }
+	}
+
 
 }

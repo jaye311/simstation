@@ -19,13 +19,13 @@ public abstract class MobileAgent extends Agent {
             else if(heading == Heading.WEST)
                 xc--;
             if(xc < 0)
-                xc = World.SIZE;
-            else if(xc > World.SIZE)
-                xc = 0;
+                xc = xc + World.SIZE;
+            else if(xc >= World.SIZE)
+                xc = xc - World.SIZE;
             if(yc < 0)
-                yc = World.SIZE;
-            else if(yc > World.SIZE)
-                yc = 0;
+                yc = yc + World.SIZE;
+            else if(yc >= World.SIZE)
+                yc = yc - World.SIZE;
               
               try {
                 Thread.sleep(20);

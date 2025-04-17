@@ -8,7 +8,7 @@ public class GreedFactory extends WorldFactory {
 
 	 @Override
 	    public Model makeModel() {
-	        return new GreedSimulation();
+	        return new Meadow();
 	    }
 	 
 	 @Override

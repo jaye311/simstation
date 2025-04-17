@@ -24,10 +24,8 @@ public class GreedView extends WorldView {
 			for (int j = 0; j < meadow.dim; j++) {
 				Patch patch = meadow.getPatch(i, j);
 				if (patch != null) {
-					int energy = patch.energy; 
-					gc.setColor(new Color(0, 255, 0));
+					gc.setColor(new Color(0, 55 + patch.energy*2, 0));
 					gc.fillRect(i * patchSize, j * patchSize, patchSize, patchSize);
-					
 					gc.setColor(Color.WHITE);
 					gc.drawRect(i*patchSize, j*patchSize, patchSize, patchSize);
 				}
@@ -46,8 +44,8 @@ public class GreedView extends WorldView {
 	public void drawAgent(Agent a, Graphics gc) {
 		if (a instanceof Cow) {
 			Cow cow = (Cow) a;
-			Color oldColor = gc.getColor(); 
-			gc.setColor(cow.isDead ? Color.white : Color.RED);
+			Color oldColor = gc.getColor();
+			gc.setColor(cow.isStopped() ? Color.white : Color.RED);
 			gc.fillOval(cow.getPoint()[0], cow.getPoint()[1], 6, 6);
 			gc.setColor(oldColor);
 		}
