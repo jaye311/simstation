@@ -2,7 +2,8 @@ package simstation.greed;
 
 import simstation.WorldPanel;
 
-import javax.swing.*; 
+import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class GreedPanel extends WorldPanel {
@@ -37,15 +38,26 @@ public class GreedPanel extends WorldPanel {
 		sliderPanel.add(moveSlider);
 		
 		controlPanel.add(sliderPanel, BorderLayout.SOUTH);
-		Meadow meadow = (Meadow) model;
 
-		int growthRate = grassSlider.getValue();
-		int cowGreed = greedSlider.getValue();
-		int movePenalty = moveSlider.getValue();
 
-		meadow.setGrowthRate(growthRate);
-		meadow.setCowGreediness(cowGreed);
-		meadow.movePenalty = movePenalty;
+		ChangeListener parameterChangeListener = e -> updateSimulationParameters();
+
+
+		grassSlider.addChangeListener(parameterChangeListener);
+		greedSlider.addChangeListener(parameterChangeListener);
+		moveSlider.addChangeListener(parameterChangeListener);
+	}
+	private void updateSimulationParameters() {
+		if (model instanceof Meadow) {
+			((Meadow) model).setGrowthRate(grassSlider.getValue());
+			Cow.greediness = (greedSlider.getValue());
+			((Meadow)model).setMovePenalty(moveSlider.getValue());
+		}
+	}
+
+	public static void main(String[] args) {
+		GreedPanel panel = new GreedPanel(new GreedFactory());
+		panel.display();
 	}
 	
 

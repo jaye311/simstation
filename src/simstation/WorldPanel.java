@@ -63,6 +63,8 @@ public class WorldPanel extends AppPanel {
     }
     @Override
     public void setModel(Model m) {
+        if(model != null)
+            ((World) model).stopAgents();
         super.setModel(m);
         World w = (World)m;
         Iterator<Agent> it = w.iterator();

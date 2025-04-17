@@ -53,7 +53,7 @@ public abstract class World extends Model {
     }
     //updates the amount of agents that are not stopped and increments a clock for updates
     public synchronized void updateStatistics(){
-        clock++;
+        incrementClock();
         int count = 0;
         for (Agent a: agents){
             if(!a.stopped)
@@ -94,10 +94,6 @@ public abstract class World extends Model {
 
     public int getAlive() {
         return alive;
-    }
-
-    public void setAlive(int x) {
-        alive = x;
     }
 
     public ObserverAgent getObserver() {

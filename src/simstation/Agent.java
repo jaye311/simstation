@@ -15,7 +15,7 @@ public abstract class Agent implements Runnable, Serializable {
     public Agent(){
         agentName = "Agent " + Utilities.getID();
     }
-    //ObserverAgent constructor
+    //ObserverAgent constructor and patches of grass
     public Agent(World world){
         this();
         setWorld(world);
@@ -39,8 +39,6 @@ public abstract class Agent implements Runnable, Serializable {
             }
             catch (InterruptedException i){
                 onInterrupted();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
             }
         }
         onExit();
@@ -87,5 +85,14 @@ public abstract class Agent implements Runnable, Serializable {
 
     public void setYc(int yc) {
         this.yc = yc;
+    }
+
+    public boolean isStopped(){
+        return stopped;
+    }
+
+    public void setPosition(int x, int y) {
+        this.xc = x;
+        this.yc = y;
     }
 }
