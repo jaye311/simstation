@@ -96,6 +96,10 @@ public abstract class World extends Model {
         return alive;
     }
 
+    public void setAlive(int x) {
+        alive = x;
+    }
+
     public ObserverAgent getObserver() {
         return observer;
     }
