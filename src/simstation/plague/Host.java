@@ -10,7 +10,6 @@ public class Host extends MobileAgent {
     private int infectionProbability;
     private int fatalityTime;
     private boolean isFatal;
-    private boolean isDead;
     private int timeSinceInfection;
 
     public Host(boolean infected, int infectionProbability, int fatalityTime, boolean isFatal) {
@@ -19,16 +18,11 @@ public class Host extends MobileAgent {
         this.infectionProbability = infectionProbability;
         this.fatalityTime = fatalityTime;
         this.isFatal = isFatal;
-        this.isDead = false;
         this.timeSinceInfection = 0;
     }
 
     public boolean isInfected() {
         return infected;
-    }
-
-    public boolean isDead() {
-        return isDead;
     }
 
     @Override
@@ -38,11 +32,6 @@ public class Host extends MobileAgent {
         heading = Heading.random();
 
         move(steps);
-        // try {
-        //   Thread.sleep(20);
-        // } catch (Exception e) {
-        //   System.err.println(e.getMessage());
-        // }
 
         if (infected) {
             timeSinceInfection++;
@@ -50,7 +39,6 @@ public class Host extends MobileAgent {
             if (timeSinceInfection >= fatalityTime) {
                 if (isFatal) {
                     stop();
-                    isDead = true;
                 } else {
                     infected = false;
                     timeSinceInfection = 0;

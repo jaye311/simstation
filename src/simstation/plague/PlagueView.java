@@ -16,7 +16,7 @@ public class PlagueView extends WorldView {
         Host host = (Host)a;
         gc.setColor(host.isInfected() ? Color.RED : Color.GREEN);
         
-        if (host.isDead()) {
+        if (host.isStopped()) {
           gc.setColor(Color.LIGHT_GRAY);
         }
         int[] point = a.getPoint();

@@ -59,7 +59,7 @@ public abstract class World extends Model {
             if(!a.stopped)
                 count++;
         }
-        alive = count;
+        setAlive(count);
     }
     public synchronized Agent getNeighbor(Agent caller, int radius){
         //gets a random Agent from the List to start iterating from
@@ -94,6 +94,10 @@ public abstract class World extends Model {
 
     public int getAlive() {
         return alive;
+    }
+
+    public void setAlive(int alive) {
+         this.alive = alive;
     }
 
     public ObserverAgent getObserver() {

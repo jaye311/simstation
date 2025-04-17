@@ -84,12 +84,7 @@ public class PlaguePanel extends WorldPanel {
         
         controlPanel.add(slidersPanel, BorderLayout.CENTER);
         
-        ChangeListener parameterChangeListener = new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                updateSimulationParameters();
-            }
-        };
+        ChangeListener parameterChangeListener = e -> updateSimulationParameters();
         
         initialInfectedSlider.addChangeListener(parameterChangeListener);
         infectionProbabilitySlider.addChangeListener(parameterChangeListener);
