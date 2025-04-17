@@ -13,8 +13,6 @@ public class PlagueSimulation extends World {
     private boolean isFatal = false;
     private int total = 0;
     private int infected = 0;
-    // private int alive = 0;
-    // private int clock = 0;
 
     public void setInitialInfectedPercentage(int percentage) {
         PlagueSimulation.INITIAL_INFECTED = percentage;
@@ -51,6 +49,8 @@ public class PlagueSimulation extends World {
 
     public void updateStatistics() {
       incrementClock();
+      total = 0;
+      infected = 0;
       int count = 0;
       for (var it = iterator(); it.hasNext();) {
         Host host = (Host) it.next();

@@ -50,6 +50,6 @@ public abstract class WorldFactory implements AppFactory {
 
     @Override
     public String about() {
-        return "2025 Simstation Johnathan Aye, Brendan Ly, Brian Brown";
+        return "2025 Simstation by Johnathan Aye, Brendan Ly, Brian Brown";
     }
 }
